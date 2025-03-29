@@ -1,0 +1,30 @@
+Description: Steps to implement a movie manager using
+
+'''
+
+step1 -  POC for downloading links using yt-dlp and cookies file
+    1. download link using copy pasted cookies from browser application cookies
+    2. execute yt-dlp synchronously with cookies file
+
+
+step2 - async function to download links using yt-dlp and cookies file
+    1. add async function to download link using cookies file
+    2. add number of threads to open for download with default number of links 
+    3. if open threads is smaller then number of links then que link to  
+       download and wait for occupied thread to finish
+    4. if open threads is bigger or same as number of links then download all 
+       links in parallel
+
+step3- add kafka to manage the downloads
+    1. add kafka producer to send download links to a topic
+    2. add kafka consumer to read from the topic and download the links using 
+       yt-dlp
+    3. add error handling for failed downloads and retry logic
+    4. add logging to track download progress and errors 
+
+step5 - add configuration file to manage settings
+
+step4 - add ui to follow downloads and manage the queue
+
+
+'''

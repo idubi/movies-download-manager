@@ -1,0 +1,11 @@
+/.venv/*
+/.history/*
+/temp/*
+/.idea/*
+/__*__/*
+__*__
+*.mp4
+*.avi
+*.mov
+*.part
+
