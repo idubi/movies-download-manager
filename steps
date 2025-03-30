@@ -9,10 +9,10 @@ step1 -  POC for downloading links using yt-dlp and cookies file
 
 step2 - async function to download links using yt-dlp and cookies file
     1. add async function to download link using cookies file
-    2. add number of threads to open for download with default number of links 
-    3. if open threads is smaller then number of links then que link to  
+    2. add number of cli to open for download with default number of links 
+    3. if number of allowed open cli is smaller then number of links then que link to  
        download and wait for occupied thread to finish
-    4. if open threads is bigger or same as number of links then download all 
+    4. if number of allowed open threads is bigger or same as number of links then download all 
        links in parallel
 
 step3- add kafka to manage the downloads
