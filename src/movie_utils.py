@@ -1,5 +1,6 @@
 import os
 import asyncio
+import time
 
 
 async def download_video(cookies_path, link, name, folder_path):
@@ -35,56 +36,47 @@ async def download_video(cookies_path, link, name, folder_path):
         print(f"FAILED: {link} - {stderr.decode().strip()}")
 
 
-async def download_videos_async(
-    cookies_path, links_file_path, max_concurrent_downloads=5
-):
+async def download_videos_async(cookies_path, tasks, max_concurrent_downloads=5):
     """
     Asynchronously download multiple videos with a limit on concurrent downloads.
     """
     resources_path = "./resources"
-    folder_name = None
-
-    if not os.path.exists(cookies_path):
-        raise FileNotFoundError(f"Cookies file not found: {cookies_path}")
-
-    if not os.path.exists(links_file_path):
-        raise FileNotFoundError(f"Links file not found: {links_file_path}")
-
-    # Read links and prepare tasks
-    tasks = []
     semaphore = asyncio.Semaphore(max_concurrent_downloads)
 
     async def semaphore_wrapper(cookies_path, link, name, folder_path):
         async with semaphore:
             await download_video(cookies_path, link, name, folder_path)
 
-    with open(links_file_path, "r") as links_file:
-        for line in links_file:
-            line = line.strip()
-            if not line:
-                continue
+    # Group tasks by folder
+    tasks_by_folder = {}
+    for task in tasks:
+        folder_name = task["folder_name"]
+        if folder_name not in tasks_by_folder:
+            tasks_by_folder[folder_name] = []
+        tasks_by_folder[folder_name].append(task)
 
-            # Check if the line specifies the folder name
-            if line.startswith("folder:"):
-                folder_name = line.split("folder:")[1].strip()
-                continue
+    # Check for duplicate file names in each folder
+    for folder_name, folder_tasks in tasks_by_folder.items():
+        folder_path = os.path.join(resources_path, folder_name)
+        file_names = [
+            task.get("name") or f"default_{int(time.time())}" for task in folder_tasks
+        ]
+        if len(file_names) != len(set(file_names)):
+            print(
+                f"ERROR: Duplicate file names detected in folder '{folder_name}'. Aborting downloads for this folder."
+            )
+            continue
 
-            # Ensure a folder name has been set
-            if not folder_name:
-                print("Skipping links because no folder name is specified.")
-                continue
+        # Prepare and run tasks for the folder
+        download_tasks = []
+        for task in folder_tasks:
+            link = task["link"]
+            name = (
+                task.get("name") or f"default_{int(time.time())}"
+            )  # Assign default name if not provided
+            download_tasks.append(
+                semaphore_wrapper(cookies_path, link, name, folder_path)
+            )
 
-            # Parse the link and name
-            parts = line.split()
-            if len(parts) != 2:
-                print(f"Skipping invalid line: {line}")
-                continue
-
-            link, name = parts
-            folder_path = os.path.join(resources_path, folder_name)
-
-            # Add the task to the list
-            tasks.append(semaphore_wrapper(cookies_path, link, name, folder_path))
-
-    # Run all tasks concurrently with a limit on the number of concurrent downloads
-    await asyncio.gather(*tasks)
+        # Run all tasks concurrently with a limit on the number of concurrent downloads
+        await asyncio.gather(*download_tasks)
