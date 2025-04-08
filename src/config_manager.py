@@ -1,4 +1,6 @@
+from message_hub import MessageHub
 import os
+import json
 
 
 def read_links_file(links_file_path):
@@ -31,11 +33,29 @@ def read_links_file(links_file_path):
             # Parse the link and name
             parts = line.split()
             if len(parts) != 2:
-                parts.append("")
-                # print(f"Skipping invalid line: {line}")
-                # continue
+                print(f"Skipping invalid line: {line}")
+                continue
 
             link, name = parts
             tasks.append({"link": link, "name": name, "folder_name": folder_name})
 
     return tasks
+
+
+if __name__ == "__main__":
+    # Kafka configuration
+    kafka_config = {
+        "bootstrap.servers": "localhost:9092",  # Replace with your Kafka server
+    }
+    kafka_topic = "download-requests"
+
+    # Initialize the Message Hub
+    message_hub = MessageHub(kafka_config)
+
+    # Read tasks from the links file
+    links_file_path = "./resources/links-tests.txt"
+    tasks = read_links_file(links_file_path)
+
+    # Send tasks to Kafka
+    for task in tasks:
+        message_hub.send_message(kafka_topic, key=task["name"], value=task)

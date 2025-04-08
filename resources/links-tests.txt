@@ -1,20 +1,23 @@
 folder: tests
 folder: tests/test01
-
+max_concurrent_downloads: 2
 https://www.youtube.com/shorts/L3tCWlXbxXk 123
 https://www.youtube.com/shorts/YMlBVneiL7s erw
 https://www.youtube.com/shorts/bopT80d4Iqo r
 folder: tests/test02
+max_concurrent_downloads: 1
 https://www.youtube.com/shorts/bopT80d4Iqo 123
 https://www.youtube.com/shorts/L3tCWlXbxXk lindormachine
 https://www.youtube.com/shorts/XYAITfhkBMM lindormachine02
 https://www.youtube.com/shorts/XYAITfhkBMM 123
 
 folder: tests/test03
+max_concurrent_downloads: 2
 https://www.youtube.com/shorts/bopT80d4Iqo 123
 https://www.youtube.com/shorts/iqWxcdXO9Vo ariel2
 https://www.youtube.com/shorts/MCbZOPwmbMw abc
 https://www.youtube.com/shorts/9yV9EIDoF1E efg
+
 folder: tests/test04
 https://www.youtube.com/shorts/9yV9EIDoF1E baseball
 https://www.youtube.com/shorts/9yV9EIDoF1E kkk
