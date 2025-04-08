@@ -24,7 +24,25 @@ step3- add kafka to manage the downloads
 
 step5 - add configuration file to manage settings
 
-step4 - add ui to follow downloads and manage the queue
+step6 - add ui to follow downloads and manage the queue
 
+step7 - split rto microservices 
+
+step 8 - k8 
+
+step 8 - curl   
+    1. add curl to download links using cookies file
+    2. add curl to download links using cookies file and headers
+    3. add curl to download links using cookies file and headers and data
+    4. add curl to download links using cookies file and headers and data and output file
+    5. add curl to download links using cookies file and headers and data and output file and 
+       progress bar
+    6. add curl to download links using cookies file and headers and data and output file and 
+       progress bar and error handling
+    7. add curl to download links using cookies file and headers and data and output file and 
+       progress bar and error handling and logging
+
+step9 - read cookies from browser 
+      - if no need for cookies - work without cookies
 
 '''
