@@ -3,11 +3,15 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 0,
+            "activePatchIndex": 1,
             "patches": [
                 {
                     "date": 1744753146389,
                     "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1744753890334,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -62,9 +62,9 @@\n         \n         cookies_path = None\n         folder_name = task[\"folder_name\"]\n         folder_path = os.path.join(\"./resources\", folder_name)\n-        if eval(need_cookies):\n+        if str(need_cookies).strip().lower() == 'true':\n             raw_cookie_path = task[\"raw_cookies_path\"]\n             cookies_path =  task[\"cookies_path\"]\n             cookies = create_cookies_from_browser_cookies(raw_cookie_path)\n             save_cookies_to_file(cookies_path, cookies)   \n"
                 }
             ],
             "date": 1744753146389,

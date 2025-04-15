@@ -4,6 +4,9 @@
 /.idea/*
 /__*__/*
 __*__
+/.lh/*
+/.vscode/*
+__pycache__/*
 *.mp4
 *.avi
 *.mov
@@ -11,5 +14,3 @@ __*__
 *.txt
 *.part
 *.webm
-
-
