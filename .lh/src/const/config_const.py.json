@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 3,
+            "activePatchIndex": 12,
             "patches": [
                 {
                     "date": 1744671274668,
@@ -20,6 +20,42 @@
                 {
                     "date": 1744673985760,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,1 +1,1 @@\n-LINKS_FILE_PATH = \"./resources/links-K8-semperis.txt\"\n\\ No newline at end of file\n+LINKS_FILE_PATH = \"./resources/links-udemy.txt\"\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1744726624397,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,1 +1,1 @@\n-LINKS_FILE_PATH = \"./resources/links-udemy.txt\"\n\\ No newline at end of file\n+LINKS_FILE_PATH = \"./resources/links-tests.txt.\"\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1744726947710,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,1 +1,1 @@\n-LINKS_FILE_PATH = \"./resources/links-tests.txt.\"\n\\ No newline at end of file\n+LINKS_FILE_PATH = \"./resources/links-tests.txt\"\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1744729169350,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,1 +1,2 @@\n-LINKS_FILE_PATH = \"./resources/links-tests.txt\"\n\\ No newline at end of file\n+LINKS_FILE_PATH = \"./resources/links-tests.txt\"\n+max_concurrent_downloads = 15\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1744729181823,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,2 +1,2 @@\n LINKS_FILE_PATH = \"./resources/links-tests.txt\"\n-max_concurrent_downloads = 15\n\\ No newline at end of file\n+MAX_CONCURRENT_DOWNLOADS = 15\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1744731828841,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,2 +1,6 @@\n LINKS_FILE_PATH = \"./resources/links-tests.txt\"\n-MAX_CONCURRENT_DOWNLOADS = 15\n\\ No newline at end of file\n+MAX_CONCURRENT_DOWNLOADS = 15\n+\n+KAFKA_BOOTSTRAP_SERVERS = \"localhost:9092\"\n+KAFKA_TOPIC_DOWNLOAD_REQUESTS = \"download-requests\"\n+KAFKA_TOPIC_DOWNLOAD_STATUS = \"download-status\"\n"
+                },
+                {
+                    "date": 1744750189496,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,7 @@\n LINKS_FILE_PATH = \"./resources/links-tests.txt\"\n MAX_CONCURRENT_DOWNLOADS = 15\n-\n+ \n KAFKA_BOOTSTRAP_SERVERS = \"localhost:9092\"\n KAFKA_TOPIC_DOWNLOAD_REQUESTS = \"download-requests\"\n KAFKA_TOPIC_DOWNLOAD_STATUS = \"download-status\"\n+ \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1744750340847,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,9 @@\n LINKS_FILE_PATH = \"./resources/links-tests.txt\"\n MAX_CONCURRENT_DOWNLOADS = 15\n- \n-KAFKA_BOOTSTRAP_SERVERS = \"localhost:9092\"\n+\n+    # Kafka configuration\n+\n+kafka_config = \"bootstrap.servers\": \"localhost:9092\"\n KAFKA_TOPIC_DOWNLOAD_REQUESTS = \"download-requests\"\n KAFKA_TOPIC_DOWNLOAD_STATUS = \"download-status\"\n  \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1744750348306,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,8 +2,8 @@\n MAX_CONCURRENT_DOWNLOADS = 15\n \n     # Kafka configuration\n \n-kafka_config = \"bootstrap.servers\": \"localhost:9092\"\n+KAFKA_CONFIG = \"bootstrap.servers\": \"localhost:9092\"\n KAFKA_TOPIC_DOWNLOAD_REQUESTS = \"download-requests\"\n KAFKA_TOPIC_DOWNLOAD_STATUS = \"download-status\"\n  \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1744750357365,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,8 +2,8 @@\n MAX_CONCURRENT_DOWNLOADS = 15\n \n     # Kafka configuration\n \n-KAFKA_CONFIG = \"bootstrap.servers\": \"localhost:9092\"\n+KAFKA_CONFIG = {}\"bootstrap.servers\": \"localhost:9092\"}\n KAFKA_TOPIC_DOWNLOAD_REQUESTS = \"download-requests\"\n KAFKA_TOPIC_DOWNLOAD_STATUS = \"download-status\"\n  \n\\ No newline at end of file\n"
                 }
             ],
             "date": 1744671274668,

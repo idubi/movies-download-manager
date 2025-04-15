@@ -1,0 +1,86 @@
+{
+    "sourceFile": "src/services/config_manager/config_manager.py",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 17,
+            "patches": [
+                {
+                    "date": 1744733152424,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1744742261737,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n import os\n import json\n from const import auth_const, config_const\n-from message_hub import MessageHub\n+from services.message_HUB.message_hub import MessageHub\n from utils.config_utils import parse_params, \\\n                 parse_params,get_param_value, \\\n                 validate_params, add_default_value\n \n@@ -14,11 +14,12 @@\n         if cls._instance is None:\n             cls._instance = super(ConfigManager, cls).__new__(cls)\n             cls._instance._initialize(links_file_path, kafka_config, kafka_topic)\n         else:\n-            if cls._instance._validate_links_file_path(links_file_path):\n-                cls._instance._links_file_path = links_file_path\n-                cls._instance._read_links_file_and_send()\n+            if links_file_path:\n+                if cls._instance._validate_links_file_path(links_file_path):\n+                    cls._instance._links_file_path = links_file_path\n+                    cls._instance._read_links_file_and_send()\n         return cls._instance\n \n     def _initialize(self, links_file_path, kafka_config, kafka_topic):\n         self._kafka_config = kafka_config\n"
+                },
+                {
+                    "date": 1744747179770,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,8 +20,19 @@\n                     cls._instance._links_file_path = links_file_path\n                     cls._instance._read_links_file_and_send()\n         return cls._instance\n \n+    def set_links_file_path(self, links_file_path):\n+        \"\"\"\n+        Set the path to the links file and read it.\n+        \"\"\"\n+        if self._validate_links_file_path(links_file_path):\n+            self._links_file_path = links_file_path\n+        else:\n+            print(f\"Invalid links file path: {links_file_path}\")\n+        return self\n+    \n+\n     def _initialize(self, links_file_path, kafka_config, kafka_topic):\n         self._kafka_config = kafka_config\n         self._links_file_path = links_file_path\n         self._kafka_topic = kafka_topic\n"
+                },
+                {
+                    "date": 1744747214996,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -45,9 +45,9 @@\n             print(f\"Invalid links file path: {path}\")\n             return False\n         return True\n \n-    def _read_links_file_and_send(self):\n+    def read_links_file_and_send(self):\n         self.tasks = self._read_links_file(self._links_file_path)\n         for task in self.tasks:\n             self.message_hub.send_message(self._kafka_topic, key=task[\"link\"], value=task)\n \n"
+                },
+                {
+                    "date": 1744747234807,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,9 +17,9 @@\n         else:\n             if links_file_path:\n                 if cls._instance._validate_links_file_path(links_file_path):\n                     cls._instance._links_file_path = links_file_path\n-                    cls._instance._read_links_file_and_send()\n+                    cls._instance.read_links_file_and_send()\n         return cls._instance\n \n     def set_links_file_path(self, links_file_path):\n         \"\"\"\n@@ -37,9 +37,9 @@\n         self._links_file_path = links_file_path\n         self._kafka_topic = kafka_topic\n         self.message_hub = MessageHub(kafka_config)\n         self.tasks = []\n-        self._read_links_file_and_send()\n+        self.read_links_file_and_send()\n \n     def _validate_links_file_path(self, path):\n         if not os.path.exists(path):\n             print(f\"Invalid links file path: {path}\")\n"
+                },
+                {
+                    "date": 1744747507388,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,9 @@\n \n class ConfigManager:\n     _instance = None\n \n-    def __new__(cls, links_file_path, kafka_config, kafka_topic):\n+    def __new__(cls, kafka_config, kafka_topic, links_file_path=None):\n         if cls._instance is None:\n             cls._instance = super(ConfigManager, cls).__new__(cls)\n             cls._instance._initialize(links_file_path, kafka_config, kafka_topic)\n         else:\n"
+                },
+                {
+                    "date": 1744749614002,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,7 @@\n import os\n import json\n-from const import auth_const, config_const\n+from src.const import auth_const, config_const\n from services.message_HUB.message_hub import MessageHub\n from utils.config_utils import parse_params, \\\n                 parse_params,get_param_value, \\\n                 validate_params, add_default_value\n"
+                },
+                {
+                    "date": 1744749642943,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n import os\n import json\n-from src.const import auth_const, config_const\n-from services.message_HUB.message_hub import MessageHub\n+from src.const import auth_const\n+from src.services.message_HUB.message_hub import MessageHub\n from utils.config_utils import parse_params, \\\n                 parse_params,get_param_value, \\\n                 validate_params, add_default_value\n \n"
+                },
+                {
+                    "date": 1744749657464,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n import os\n import json\n from src.const import auth_const\n from src.services.message_HUB.message_hub import MessageHub\n-from utils.config_utils import parse_params, \\\n+from src.utils.config_utils import parse_params, \\\n                 parse_params,get_param_value, \\\n                 validate_params, add_default_value\n \n \n"
+                },
+                {
+                    "date": 1744750504964,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -33,13 +33,14 @@\n     \n \n     def _initialize(self, links_file_path, kafka_config, kafka_topic):\n         self._kafka_config = kafka_config\n-        self._links_file_path = links_file_path\n         self._kafka_topic = kafka_topic\n         self.message_hub = MessageHub(kafka_config)\n         self.tasks = []\n-        self.read_links_file_and_send()\n+        self._validate_links_file_path(links_file_path):\n+            self._links_file_path = links_file_path\n+            self.read_links_file_and_send()\n \n     def _validate_links_file_path(self, path):\n         if not os.path.exists(path):\n             print(f\"Invalid links file path: {path}\")\n"
+                },
+                {
+                    "date": 1744750512131,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -36,9 +36,9 @@\n         self._kafka_config = kafka_config\n         self._kafka_topic = kafka_topic\n         self.message_hub = MessageHub(kafka_config)\n         self.tasks = []\n-        self._validate_links_file_path(links_file_path):\n+        if self._validate_links_file_path(links_file_path):\n             self._links_file_path = links_file_path\n             self.read_links_file_and_send()\n \n     def _validate_links_file_path(self, path):\n"
+                },
+                {
+                    "date": 1744750552073,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -41,9 +41,9 @@\n             self._links_file_path = links_file_path\n             self.read_links_file_and_send()\n \n     def _validate_links_file_path(self, path):\n-        if not os.path.exists(path):\n+        if path and (not os.path.exists(path)):\n             print(f\"Invalid links file path: {path}\")\n             return False\n         return True\n \n"
+                },
+                {
+                    "date": 1744750629251,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -41,9 +41,9 @@\n             self._links_file_path = links_file_path\n             self.read_links_file_and_send()\n \n     def _validate_links_file_path(self, path):\n-        if path and (not os.path.exists(path)):\n+        if (not path) or (not os.path.exists(path)):\n             print(f\"Invalid links file path: {path}\")\n             return False\n         return True\n \n"
+                },
+                {
+                    "date": 1744750647218,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -41,9 +41,9 @@\n             self._links_file_path = links_file_path\n             self.read_links_file_and_send()\n \n     def _validate_links_file_path(self, path):\n-        if (not path) or (not os.path.exists(path)):\n+        if (path  and  os.path.exists(path)):\n             print(f\"Invalid links file path: {path}\")\n             return False\n         return True\n \n"
+                },
+                {
+                    "date": 1744750799920,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -41,9 +41,9 @@\n             self._links_file_path = links_file_path\n             self.read_links_file_and_send()\n \n     def _validate_links_file_path(self, path):\n-        if (path  and  os.path.exists(path)):\n+        if (path != None)  and  (os.path.exists(path)):\n             print(f\"Invalid links file path: {path}\")\n             return False\n         return True\n \n"
+                },
+                {
+                    "date": 1744751007610,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -36,9 +36,9 @@\n         self._kafka_config = kafka_config\n         self._kafka_topic = kafka_topic\n         self.message_hub = MessageHub(kafka_config)\n         self.tasks = []\n-        if self._validate_links_file_path(links_file_path):\n+        if self._validate_links_file_path(links_file_path or \"\"):\n             self._links_file_path = links_file_path\n             self.read_links_file_and_send()\n \n     def _validate_links_file_path(self, path):\n"
+                },
+                {
+                    "date": 1744751093490,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -41,9 +41,9 @@\n             self._links_file_path = links_file_path\n             self.read_links_file_and_send()\n \n     def _validate_links_file_path(self, path):\n-        if (path != None)  and  (os.path.exists(path)):\n+        if  (os.path.exists(path)):\n             print(f\"Invalid links file path: {path}\")\n             return False\n         return True\n \n"
+                },
+                {
+                    "date": 1744751099528,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -41,9 +41,9 @@\n             self._links_file_path = links_file_path\n             self.read_links_file_and_send()\n \n     def _validate_links_file_path(self, path):\n-        if  (os.path.exists(path)):\n+        if  not (os.path.exists(path)):\n             print(f\"Invalid links file path: {path}\")\n             return False\n         return True\n \n"
+                }
+            ],
+            "date": 1744733152424,
+            "name": "Commit-0",
+            "content": "import os\nimport json\nfrom const import auth_const, config_const\nfrom message_hub import MessageHub\nfrom utils.config_utils import parse_params, \\\n                parse_params,get_param_value, \\\n                validate_params, add_default_value\n\n\nclass ConfigManager:\n    _instance = None\n\n    def __new__(cls, links_file_path, kafka_config, kafka_topic):\n        if cls._instance is None:\n            cls._instance = super(ConfigManager, cls).__new__(cls)\n            cls._instance._initialize(links_file_path, kafka_config, kafka_topic)\n        else:\n            if cls._instance._validate_links_file_path(links_file_path):\n                cls._instance._links_file_path = links_file_path\n                cls._instance._read_links_file_and_send()\n        return cls._instance\n\n    def _initialize(self, links_file_path, kafka_config, kafka_topic):\n        self._kafka_config = kafka_config\n        self._links_file_path = links_file_path\n        self._kafka_topic = kafka_topic\n        self.message_hub = MessageHub(kafka_config)\n        self.tasks = []\n        self._read_links_file_and_send()\n\n    def _validate_links_file_path(self, path):\n        if not os.path.exists(path):\n            print(f\"Invalid links file path: {path}\")\n            return False\n        return True\n\n    def _read_links_file_and_send(self):\n        self.tasks = self._read_links_file(self._links_file_path)\n        for task in self.tasks:\n            self.message_hub.send_message(self._kafka_topic, key=task[\"link\"], value=task)\n\n    def _read_links_file(self, path):\n        tasks = []\n        folder_name = None\n        with open(path, \"r\") as links_file:\n            for line in links_file:\n                line = line.strip()\n                if not line:\n                    continue\n                if line.startswith(\"folder:\"):\n                    folder_name = line.split(\"folder:\")[1].strip()\n                    continue\n                if not folder_name:\n                    print(\"Skipping links because no folder name is specified.\")\n                    continue\n                link, params = line.strip().split(\" \", 1)\n                param_tuples = parse_params(params)\n                add_default_value(param_tuples, \"need_authentication\", \"False\")\n                if eval(get_param_value(param_tuples, \"need_authentication\", \"False\")):\n                    add_default_value(param_tuples, \"cookies_path\", auth_const.COOKIES_PATH)\n                    add_default_value(param_tuples, \"raw_cookies_path\", auth_const.RAW_COOKIES_PATH)\n                if not validate_params(param_tuples, [\"file_name\", \"need_authentication\"], f\"Skipping invalid line: {line}\"):\n                    continue\n                params_dict = dict(param_tuples)\n                tasks.append({\n                    \"link\": link,\n                    \"folder_name\": folder_name,\n                    \"name\": get_param_value(param_tuples, \"file_name\"),\n                    **params_dict\n                })\n        return tasks\n\n    def __del__(self):\n        if hasattr(self, \"message_hub\"):\n            del self.message_hub\n"
+        }
+    ]
+}

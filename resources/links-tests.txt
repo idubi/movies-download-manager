@@ -1,11 +1,11 @@
 folder: tests
 folder: tests/test01
-https://www.youtube.com/shorts/L3tCWlXbxXk file_name=123 need_authentication=true
-https://www.youtube.com/shorts/YMlBVneiL7s file_name=erw need_authentication=false
+https://www.youtube.com/shorts/L3tCWlXbxXk file_name=123 need_authentication=True
+https://www.youtube.com/shorts/YMlBVneiL7s file_name=erw need_authentication=False
 https://www.youtube.com/shorts/bopT80d4Iqo file_name=r
 
-folder: tests/test01/test02
-https://www.youtube.com/shorts/bopT80d4Iqo file_name=123 need_authentication=true
+folder: tests/test01/tes01A
+https://www.youtube.com/shorts/bopT80d4Iqo file_name=123 need_authentication=True
 https://www.youtube.com/shorts/L3tCWlXbxXk file_name=lindormachine
 https://www.youtube.com/shorts/XYAITfhkBMM file_name=lindormachine02
 https://www.youtube.com/shorts/XYAITfhkBMM file_name=123 need_auth
