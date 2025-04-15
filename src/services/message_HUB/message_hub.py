@@ -1,4 +1,5 @@
-from confluent_kafka import Producer, Consumer
+from confluent_kafka import Producer, Consumer, Producer, KafkaError
+import asyncio
 import json
 
 
@@ -44,6 +45,48 @@ class MessageHub:
             print("Stopping consumer...")
         finally:
             consumer.close()
+
+
+    async def consume_messages_async(self, topic, group_id):
+        """
+        Asynchronous message consumer that yields messages one at a time
+        """
+        consumer = Consumer({
+            **self.kafka_config,
+            'group.id': group_id,
+            'auto.offset.reset': 'earliest'
+        })
+        consumer.subscribe([topic])
+
+        try:
+            while True:
+                msg = consumer.poll(timeout=1.0)
+                if msg is None:
+                    continue
+                if msg.error():
+                    print(f"Consumer error: {msg.error()}")
+                    continue
+                
+                # Convert message value from bytes to dict if needed
+                try:
+                    value = self._decode_message(msg.value())
+                    yield value
+                except Exception as e:
+                    print(f"Error processing message: {str(e)}")
+                    continue
+
+                # Give control back to event loop periodically
+                await asyncio.sleep(0)
+        finally:
+            consumer.close()
+
+    def _decode_message(self, message_value):
+        """
+        Helper method to decode message value from bytes to dict
+        """
+        if isinstance(message_value, bytes):
+            return json.loads(message_value.decode('utf-8'))
+        return message_value
 
 
 # Example usage of the Message Hub

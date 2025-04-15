@@ -1,22 +1,26 @@
 folder: tests
 folder: tests/test01
+max_concurrent: 3
 https://www.youtube.com/shorts/L3tCWlXbxXk file_name=123 need_authentication=True
 https://www.youtube.com/shorts/YMlBVneiL7s file_name=erw need_authentication=False
 https://www.youtube.com/shorts/bopT80d4Iqo file_name=r
 
 folder: tests/test01/tes01A
+max_concurrent: 2
 https://www.youtube.com/shorts/bopT80d4Iqo file_name=123 need_authentication=True
 https://www.youtube.com/shorts/L3tCWlXbxXk file_name=lindormachine
 https://www.youtube.com/shorts/XYAITfhkBMM file_name=lindormachine02
 https://www.youtube.com/shorts/XYAITfhkBMM file_name=123 need_auth
 
 folder: tests/test03
+max_concurrent: 1
 https://www.youtube.com/shorts/bopT80d4Iqo file_name=123
 https://www.youtube.com/shorts/iqWxcdXO9Vo file_name=ariel2
 https://www.youtube.com/shorts/MCbZOPwmbMw file_name=abc
 https://www.youtube.com/shorts/9yV9EIDoF1E file_name=efg
 
 folder: tests/test04
+max_concurrent: 3
 https://www.youtube.com/shorts/9yV9EIDoF1E file_name=baseball
 https://www.youtube.com/shorts/9yV9EIDoF1E file_name=kkk
 https://www.youtube.com/shorts/r7jTyl19lGg file_name=dfdf

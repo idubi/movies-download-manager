@@ -1,6 +1,6 @@
 # main.py
-# from src.services.config_manager import ConfigManager
-from config_manager import ConfigManager
+from src.services.config_manager.config_manager import ConfigManager
+
 import src.const.config_const as config_const
 
 def main():

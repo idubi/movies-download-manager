@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 14,
+            "activePatchIndex": 16,
             "patches": [
                 {
                     "date": 1744578242787,
@@ -64,6 +64,14 @@
                 {
                     "date": 1744753107072,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,7 @@\n # main.py\n # from src.services.config_manager import ConfigManager\n-from src.services.config_manager.config_manager import ConfigManager\n+from config_manager import ConfigManager\n import src.const.config_const as config_const\n \n def main():\n     config_manager = ConfigManager(config_const.KAFKA_CONFIG, \n"
+                },
+                {
+                    "date": 1744757163310,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,7 @@\n # main.py\n-# from src.services.config_manager import ConfigManager\n-from config_manager import ConfigManager\n+from src.services.config_manager import ConfigManager\n+\n import src.const.config_const as config_const\n \n def main():\n     config_manager = ConfigManager(config_const.KAFKA_CONFIG, \n"
+                },
+                {
+                    "date": 1744757184202,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,6 @@\n # main.py\n-from src.services.config_manager import ConfigManager\n+from src.services.config_manager.config_manager import ConfigManager\n \n import src.const.config_const as config_const\n \n def main():\n"
                 }
             ],
             "date": 1744578242787,
