@@ -1,0 +1,18 @@
+{
+    "sourceFile": "docker-compose.yml",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1744532362699,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1744532362699,
+            "name": "Commit-0",
+            "content": "services:\n  zookeeper:\n    image: confluentinc/cp-zookeeper:7.4.0\n    container_name: zookeeper\n    ports:\n      - \"2181:2181\"\n    environment:\n      ZOOKEEPER_CLIENT_PORT: 2181\n      ZOOKEEPER_TICK_TIME: 2000\n\n  kafka:\n    image: confluentinc/cp-kafka:7.4.0\n    container_name: kafka\n    ports:\n      - \"9092:9092\"\n    environment:\n      KAFKA_BROKER_ID: 1\n      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181\n      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092\n      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092\n      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1\n    depends_on:\n      - zookeeper\n    "
+        }
+    ]
+}

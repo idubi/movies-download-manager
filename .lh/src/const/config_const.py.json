@@ -1,0 +1,30 @@
+{
+    "sourceFile": "src/const/config_const.py",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 3,
+            "patches": [
+                {
+                    "date": 1744671274668,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1744671310351,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,1 +1,1 @@\n-LINKS_PATH = \"./resources/udemy_links.txt\"\n\\ No newline at end of file\n+LINKS_FILE_PATH = \"./resources/udemy_links.txt\"\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1744671359468,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,1 +1,1 @@\n-LINKS_FILE_PATH = \"./resources/udemy_links.txt\"\n\\ No newline at end of file\n+LINKS_FILE_PATH = \"./resources/links-K8-semperis.txt\"\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1744673985760,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,1 +1,1 @@\n-LINKS_FILE_PATH = \"./resources/links-K8-semperis.txt\"\n\\ No newline at end of file\n+LINKS_FILE_PATH = \"./resources/links-udemy.txt\"\n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1744671274668,
+            "name": "Commit-0",
+            "content": "LINKS_PATH = \"./resources/udemy_links.txt\""
+        }
+    ]
+}

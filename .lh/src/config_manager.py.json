@@ -1,0 +1,214 @@
+{
+    "sourceFile": "src/config_manager.py",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 49,
+            "patches": [
+                {
+                    "date": 1744549069378,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1744549106152,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,8 +16,9 @@\n def validate_params (param_tuples,mandatory_parameters, error_message):\n     \"\"\"\n     Validates the parameters in the param_tuples list.\n     \"\"\"\n+    param_keys = [key for key, _ in param_tuples]\n     for mandatory_param in mandatory_parameters:\n         if mandatory_param not in param_keys:\n             print(f\"{error_message} - Missing mandatory parameter: {mandatory_param}\")\n             return False\n"
+                },
+                {
+                    "date": 1744549158060,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -68,9 +68,9 @@\n             # Parse the link and name\n             link, params = line.strip().split(\" \")\n             param_tuples = parse_params(params)\n             add_default_value(param_tuples, \"need_authentication\", \"false\")\n-            if not validate_params(param_tuples,\"Skipping invalid line: {line}\")\n+            if not validate_params(param_tuples,[\"file_name\",\"need_authentication\"] ,\"Skipping invalid line: {line}\")\n \n             for param in params.split(\",\"): \n                 key, value = param.split(\"=\")\n                 if key == \"link_name\":\n"
+                },
+                {
+                    "date": 1744549177904,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -68,21 +68,11 @@\n             # Parse the link and name\n             link, params = line.strip().split(\" \")\n             param_tuples = parse_params(params)\n             add_default_value(param_tuples, \"need_authentication\", \"false\")\n-            if not validate_params(param_tuples,[\"file_name\",\"need_authentication\"] ,\"Skipping invalid line: {line}\")\n+            if not validate_params(param_tuples,[\"file_name\",\"need_authentication\"] ,\"Skipping invalid line: {line}\"):\n+                continue\n \n-            for param in params.split(\",\"): \n-                key, value = param.split(\"=\")\n-                if key == \"link_name\":\n-                    link_name = value.strip('\"')\n-                elif key == \"need_authentication\":\n-                    need_authentication = value.strip('\"')\n-            if len(parts) != 2:\n-                    print(f\"Skipping invalid line: {line}\")\n-                    continue\n-\n-            link, name = parts\n             tasks.append({\"link\": link, \"name\": name, \"folder_name\": folder_name})\n \n     return tasks\n \n"
+                },
+                {
+                    "date": 1744571205109,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -71,9 +71,12 @@\n             add_default_value(param_tuples, \"need_authentication\", \"false\")\n             if not validate_params(param_tuples,[\"file_name\",\"need_authentication\"] ,\"Skipping invalid line: {line}\"):\n                 continue\n \n-            tasks.append({\"link\": link, \"name\": name, \"folder_name\": folder_name})\n+            tasks.append({\"link\": link, \"name\": \n+                param_tuples[\"file_name\"],\n+                \"folder_name\": folder_name,\n+                \"need_authentication\":param_tuples[\"need_authentication\"]})\n \n     return tasks\n \n \n"
+                },
+                {
+                    "date": 1744571533995,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -50,9 +50,9 @@\n     folder_name = None\n \n     with open(links_file_path, \"r\") as links_file:\n         for line in links_file:\n-            line = line.strip().split(\" \")\n+            line = line.strip()\n             if not line:\n                 continue\n \n             # Check if the line specifies the folder name\n"
+                },
+                {
+                    "date": 1744571890482,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,8 +12,21 @@\n             value = value.strip('\"').strip()\n             param_tuples.append((key, value)) \n     return param_tuples\n \n+def get_param_value(param_tuples, key, default=None):\n+    \"\"\"\n+    Gets a value from param_tuples by key\n+    Args:\n+        param_tuples: List of tuples containing (key, value) pairs\n+        key: Key to look up\n+        default: Default value if key not found\n+    Returns:\n+        Value for the key or default if not found\n+    \"\"\"\n+    params_dict = dict(param_tuples)\n+    return params_dict.get(key, default)\n+\n def validate_params (param_tuples,mandatory_parameters, error_message):\n     \"\"\"\n     Validates the parameters in the param_tuples list.\n     \"\"\"\n"
+                },
+                {
+                    "date": 1744572118126,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -84,12 +84,12 @@\n             add_default_value(param_tuples, \"need_authentication\", \"false\")\n             if not validate_params(param_tuples,[\"file_name\",\"need_authentication\"] ,\"Skipping invalid line: {line}\"):\n                 continue\n \n-            tasks.append({\"link\": link, \"name\": \n-                param_tuples[\"file_name\"],\n-                \"folder_name\": folder_name,\n-                \"need_authentication\":param_tuples[\"need_authentication\"]})\n+            tasks.append({\"link\": link, \n+                        \"name\": get_param_value(param_tuples, \"file_name\"),\n+                        \"folder_name\": folder_name,\n+                        \"need_authentication\":get_param_value(param_tuples,\"need_authentication\")})\n \n     return tasks\n \n \n"
+                },
+                {
+                    "date": 1744575841979,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -78,9 +78,9 @@\n                 print(\"Skipping links because no folder name is specified.\")\n                 continue\n \n             # Parse the link and name\n-            link, params = line.strip().split(\" \")\n+            link, params = line.strip().split(\" \",1)\n             param_tuples = parse_params(params)\n             add_default_value(param_tuples, \"need_authentication\", \"false\")\n             if not validate_params(param_tuples,[\"file_name\",\"need_authentication\"] ,\"Skipping invalid line: {line}\"):\n                 continue\n"
+                },
+                {
+                    "date": 1744575906074,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,9 +3,9 @@\n import json\n \n def parse_params (params):\n     param_tuples = []\n-    for param in params.split(\",\"):\n+    for param in params.split(\" \"):\n         if \"=\" in param:\n             key, value = param.split(\"=\")\n             # Strip any quotes and whitespace\n             key = key.strip()\n"
+                },
+                {
+                    "date": 1744578266841,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -103,9 +103,10 @@\n     # Initialize the Message Hub\n     message_hub = MessageHub(kafka_config)\n \n     # Read tasks from the links file\n-    links_file_path = \"./resources/links-tests.txt\"\n+    # links_file_path = \"./resources/links-tests.txt\"\n+    links_file_path = \"./resources/udex_links.txt\"\n     tasks = read_links_file(links_file_path)\n \n     # Send tasks to Kafka\n     for task in tasks:\n"
+                },
+                {
+                    "date": 1744578281800,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -104,9 +104,9 @@\n     message_hub = MessageHub(kafka_config)\n \n     # Read tasks from the links file\n     # links_file_path = \"./resources/links-tests.txt\"\n-    links_file_path = \"./resources/udex_links.txt\"\n+    links_file_path = \"./resources/udemy_links.txt\"\n     tasks = read_links_file(links_file_path)\n \n     # Send tasks to Kafka\n     for task in tasks:\n"
+                },
+                {
+                    "date": 1744589217584,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,8 @@\n from message_hub import MessageHub\n import os\n import json\n+import const.auth_const\n \n def parse_params (params):\n     param_tuples = []\n     for param in params.split(\" \"):\n"
+                },
+                {
+                    "date": 1744589239249,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,10 +1,10 @@\n from message_hub import MessageHub\n import os\n import json\n-import const.auth_const\n+import const.auth_const as auth_const\n \n-def parse_params (params):\n+\n     param_tuples = []\n     for param in params.split(\" \"):\n         if \"=\" in param:\n             key, value = param.split(\"=\")\n"
+                },
+                {
+                    "date": 1744589282749,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,10 +1,10 @@\n from message_hub import MessageHub\n import os\n import json\n-import const.auth_const as auth_const\n+import const.auth_const   as auth_const\n \n-\n+def parse_params (params):\n     param_tuples = []\n     for param in params.split(\" \"):\n         if \"=\" in param:\n             key, value = param.split(\"=\")\n"
+                },
+                {
+                    "date": 1744589498602,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -49,9 +49,11 @@\n         Updated param_tuples list\n     \"\"\"\n     if not any(k == key for k, _ in param_tuples):\n         param_tuples.append((key, default_value))\n-    return param_tuples\n+    if get_param_value(param_tuples, \"need_authrntication\",False) :\n+        add_default_value(param_tuples, \"cookies_path\", auth_const.COOKIE_PATH)\n+        add_default_value(param_tuples, \"raw_cookies_path\", auth_const.RAW_COOKIES_PATH)\n      \n def read_links_file(links_file_path):\n     \"\"\"\n     Reads the links file and returns a list of download tasks.\n"
+                },
+                {
+                    "date": 1744589566383,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -48,12 +48,10 @@\n     Returns:\n         Updated param_tuples list\n     \"\"\"\n     if not any(k == key for k, _ in param_tuples):\n-        param_tuples.append((key, default_value))\n-    if get_param_value(param_tuples, \"need_authrntication\",False) :\n-        add_default_value(param_tuples, \"cookies_path\", auth_const.COOKIE_PATH)\n-        add_default_value(param_tuples, \"raw_cookies_path\", auth_const.RAW_COOKIES_PATH)\n+        param_tuples.append(key, default_value)\n+\n      \n def read_links_file(links_file_path):\n     \"\"\"\n     Reads the links file and returns a list of download tasks.\n"
+                },
+                {
+                    "date": 1744589654024,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -82,8 +82,14 @@\n             # Parse the link and name\n             link, params = line.strip().split(\" \",1)\n             param_tuples = parse_params(params)\n             add_default_value(param_tuples, \"need_authentication\", \"false\")\n+\n+            if get_param_value(param_tuples, \"need_authrntication\",False) :\n+                add_default_value(param_tuples, \"cookies_path\", auth_const.COOKIE_PATH)\n+                add_default_value(param_tuples, \"raw_cookies_path\", auth_const.RAW_COOKIES_PATH)\n+\n+           \n             if not validate_params(param_tuples,[\"file_name\",\"need_authentication\"] ,\"Skipping invalid line: {line}\"):\n                 continue\n \n             tasks.append({\"link\": link, \n"
+                },
+                {
+                    "date": 1744589694196,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -82,9 +82,9 @@\n             # Parse the link and name\n             link, params = line.strip().split(\" \",1)\n             param_tuples = parse_params(params)\n             add_default_value(param_tuples, \"need_authentication\", \"false\")\n-\n+            # if parameter is true then add the path to authentication files\n             if get_param_value(param_tuples, \"need_authrntication\",False) :\n                 add_default_value(param_tuples, \"cookies_path\", auth_const.COOKIE_PATH)\n                 add_default_value(param_tuples, \"raw_cookies_path\", auth_const.RAW_COOKIES_PATH)\n \n"
+                },
+                {
+                    "date": 1744590254227,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -81,9 +81,9 @@\n \n             # Parse the link and name\n             link, params = line.strip().split(\" \",1)\n             param_tuples = parse_params(params)\n-            add_default_value(param_tuples, \"need_authentication\", \"false\")\n+            add_default_value(param_tuples, \"need_authentication\", False)\n             # if parameter is true then add the path to authentication files\n             if get_param_value(param_tuples, \"need_authrntication\",False) :\n                 add_default_value(param_tuples, \"cookies_path\", auth_const.COOKIE_PATH)\n                 add_default_value(param_tuples, \"raw_cookies_path\", auth_const.RAW_COOKIES_PATH)\n"
+                },
+                {
+                    "date": 1744590393798,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -83,9 +83,9 @@\n             link, params = line.strip().split(\" \",1)\n             param_tuples = parse_params(params)\n             add_default_value(param_tuples, \"need_authentication\", False)\n             # if parameter is true then add the path to authentication files\n-            if get_param_value(param_tuples, \"need_authrntication\",False) :\n+            if get_param_value(param_tuples, \"need_authentication\",False) :\n                 add_default_value(param_tuples, \"cookies_path\", auth_const.COOKIE_PATH)\n                 add_default_value(param_tuples, \"raw_cookies_path\", auth_const.RAW_COOKIES_PATH)\n \n            \n"
+                },
+                {
+                    "date": 1744590530347,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -81,9 +81,9 @@\n \n             # Parse the link and name\n             link, params = line.strip().split(\" \",1)\n             param_tuples = parse_params(params)\n-            add_default_value(param_tuples, \"need_authentication\", False)\n+            add_default_value(param_tuples, \"need_authentication\", \"False\")\n             # if parameter is true then add the path to authentication files\n             if get_param_value(param_tuples, \"need_authentication\",False) :\n                 add_default_value(param_tuples, \"cookies_path\", auth_const.COOKIE_PATH)\n                 add_default_value(param_tuples, \"raw_cookies_path\", auth_const.RAW_COOKIES_PATH)\n"
+                },
+                {
+                    "date": 1744590592568,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -84,9 +84,9 @@\n             param_tuples = parse_params(params)\n             add_default_value(param_tuples, \"need_authentication\", \"False\")\n             # if parameter is true then add the path to authentication files\n             if get_param_value(param_tuples, \"need_authentication\",False) :\n-                add_default_value(param_tuples, \"cookies_path\", auth_const.COOKIE_PATH)\n+                add_default_value(param_tuples, \"cookies_path\", auth_const.COOKIES_PATH)\n                 add_default_value(param_tuples, \"raw_cookies_path\", auth_const.RAW_COOKIES_PATH)\n \n            \n             if not validate_params(param_tuples,[\"file_name\",\"need_authentication\"] ,\"Skipping invalid line: {line}\"):\n"
+                },
+                {
+                    "date": 1744590962909,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -48,9 +48,9 @@\n     Returns:\n         Updated param_tuples list\n     \"\"\"\n     if not any(k == key for k, _ in param_tuples):\n-        param_tuples.append(key, default_value)\n+        param_tuples.append((key, default_value))\n \n      \n def read_links_file(links_file_path):\n     \"\"\"\n"
+                },
+                {
+                    "date": 1744591102680,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -83,9 +83,9 @@\n             link, params = line.strip().split(\" \",1)\n             param_tuples = parse_params(params)\n             add_default_value(param_tuples, \"need_authentication\", \"False\")\n             # if parameter is true then add the path to authentication files\n-            if get_param_value(param_tuples, \"need_authentication\",False) :\n+            if get_param_value(param_tuples, \"need_authentication\",\"False\").parse(\"True\")  :\n                 add_default_value(param_tuples, \"cookies_path\", auth_const.COOKIES_PATH)\n                 add_default_value(param_tuples, \"raw_cookies_path\", auth_const.RAW_COOKIES_PATH)\n \n            \n"
+                },
+                {
+                    "date": 1744591215966,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -83,9 +83,9 @@\n             link, params = line.strip().split(\" \",1)\n             param_tuples = parse_params(params)\n             add_default_value(param_tuples, \"need_authentication\", \"False\")\n             # if parameter is true then add the path to authentication files\n-            if get_param_value(param_tuples, \"need_authentication\",\"False\").parse(\"True\")  :\n+            if bool(get_param_value(param_tuples, \"need_authentication\",\"False\")) :\n                 add_default_value(param_tuples, \"cookies_path\", auth_const.COOKIES_PATH)\n                 add_default_value(param_tuples, \"raw_cookies_path\", auth_const.RAW_COOKIES_PATH)\n \n            \n"
+                },
+                {
+                    "date": 1744591674529,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -83,9 +83,9 @@\n             link, params = line.strip().split(\" \",1)\n             param_tuples = parse_params(params)\n             add_default_value(param_tuples, \"need_authentication\", \"False\")\n             # if parameter is true then add the path to authentication files\n-            if bool(get_param_value(param_tuples, \"need_authentication\",\"False\")) :\n+            if eval(get_param_value(param_tuples, \"need_authentication\",\"False\")) :\n                 add_default_value(param_tuples, \"cookies_path\", auth_const.COOKIES_PATH)\n                 add_default_value(param_tuples, \"raw_cookies_path\", auth_const.RAW_COOKIES_PATH)\n \n            \n"
+                },
+                {
+                    "date": 1744592583472,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -92,11 +92,11 @@\n             if not validate_params(param_tuples,[\"file_name\",\"need_authentication\"] ,\"Skipping invalid line: {line}\"):\n                 continue\n \n             tasks.append({\"link\": link, \n-                        \"name\": get_param_value(param_tuples, \"file_name\"),\n                         \"folder_name\": folder_name,\n-                        \"need_authentication\":get_param_value(param_tuples,\"need_authentication\")})\n+                        param_tuples\n+                        )})\n \n     return tasks\n \n \n"
+                },
+                {
+                    "date": 1744592777406,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -83,19 +83,20 @@\n             link, params = line.strip().split(\" \",1)\n             param_tuples = parse_params(params)\n             add_default_value(param_tuples, \"need_authentication\", \"False\")\n             # if parameter is true then add the path to authentication files\n-            if eval(get_param_value(param_tuples, \"need_authentication\",\"False\")) :\n+            if e(get_param_value(param_tuples, \"need_authentication\",\"False\")) :\n                 add_default_value(param_tuples, \"cookies_path\", auth_const.COOKIES_PATH)\n                 add_default_value(param_tuples, \"raw_cookies_path\", auth_const.RAW_COOKIES_PATH)\n \n            \n             if not validate_params(param_tuples,[\"file_name\",\"need_authentication\"] ,\"Skipping invalid line: {line}\"):\n                 continue\n \n             tasks.append({\"link\": link, \n+                        \"name\": get_param_value(param_tuples, \"file_name\"),\n                         \"folder_name\": folder_name,\n-                        param_tuples\n+                        dict(param_tuples)\n                         )})\n \n     return tasks\n \n"
+                },
+                {
+                    "date": 1744592785648,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -95,9 +95,9 @@\n             tasks.append({\"link\": link, \n                         \"name\": get_param_value(param_tuples, \"file_name\"),\n                         \"folder_name\": folder_name,\n                         dict(param_tuples)\n-                        )})\n+                        })\n \n     return tasks\n \n \n"
+                },
+                {
+                    "date": 1744592838284,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -94,10 +94,10 @@\n \n             tasks.append({\"link\": link, \n                         \"name\": get_param_value(param_tuples, \"file_name\"),\n                         \"folder_name\": folder_name,\n-                        dict(param_tuples)\n                         })\n+            tasks.append(dict(param_tuples))\n \n     return tasks\n \n \n"
+                },
+                {
+                    "date": 1744592883071,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -94,10 +94,9 @@\n \n             tasks.append({\"link\": link, \n                         \"name\": get_param_value(param_tuples, \"file_name\"),\n                         \"folder_name\": folder_name,\n-                        })\n-            tasks.append(dict(param_tuples))\n+                        }),dict(param_tuples)\n \n     return tasks\n \n \n"
+                },
+                {
+                    "date": 1744592922400,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -83,9 +83,9 @@\n             link, params = line.strip().split(\" \",1)\n             param_tuples = parse_params(params)\n             add_default_value(param_tuples, \"need_authentication\", \"False\")\n             # if parameter is true then add the path to authentication files\n-            if e(get_param_value(param_tuples, \"need_authentication\",\"False\")) :\n+            if eval(get_param_value(param_tuples, \"need_authentication\",\"False\")) :\n                 add_default_value(param_tuples, \"cookies_path\", auth_const.COOKIES_PATH)\n                 add_default_value(param_tuples, \"raw_cookies_path\", auth_const.RAW_COOKIES_PATH)\n \n            \n"
+                },
+                {
+                    "date": 1744592985526,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -94,9 +94,9 @@\n \n             tasks.append({\"link\": link, \n                         \"name\": get_param_value(param_tuples, \"file_name\"),\n                         \"folder_name\": folder_name,\n-                        }),dict(param_tuples)\n+                        },dict(param_tuples))\n \n     return tasks\n \n \n"
+                },
+                {
+                    "date": 1744593189656,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -93,10 +93,11 @@\n                 continue\n \n             tasks.append({\"link\": link, \n                         \"name\": get_param_value(param_tuples, \"file_name\"),\n-                        \"folder_name\": folder_name,\n-                        },dict(param_tuples))\n+                        \"folder_name\": folder_name\n+                        })\n+            tasks.append(dict(param_tuples))\n \n     return tasks\n \n \n"
+                },
+                {
+                    "date": 1744623821362,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -117,5 +117,5 @@\n     tasks = read_links_file(links_file_path)\n \n     # Send tasks to Kafka\n     for task in tasks:\n-        message_hub.send_message(kafka_topic, key=task[\"name\"], value=task)\n+        message_hub.send_message(kafka_topic, key=task[\"link\"], value=task)\n"
+                },
+                {
+                    "date": 1744624290653,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -94,10 +94,10 @@\n \n             tasks.append({\"link\": link, \n                         \"name\": get_param_value(param_tuples, \"file_name\"),\n                         \"folder_name\": folder_name\n-                        })\n-            tasks.append(dict(param_tuples))\n+                        },dict(param_tuples))\n+            \n \n     return tasks\n \n \n"
+                },
+                {
+                    "date": 1744624333838,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -93,10 +93,10 @@\n                 continue\n \n             tasks.append({\"link\": link, \n                         \"name\": get_param_value(param_tuples, \"file_name\"),\n-                        \"folder_name\": folder_name\n-                        },dict(param_tuples))\n+                        \"folder_name\": folder_name,\n+                        dict(param_tuples)})\n             \n \n     return tasks\n \n"
+                },
+                {
+                    "date": 1744624417557,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -94,9 +94,9 @@\n \n             tasks.append({\"link\": link, \n                         \"name\": get_param_value(param_tuples, \"file_name\"),\n                         \"folder_name\": folder_name,\n-                        dict(param_tuples)})\n+                        param_tuples[0][0]:param_tuples[0][1],})\n             \n \n     return tasks\n \n"
+                },
+                {
+                    "date": 1744624573794,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -94,9 +94,11 @@\n \n             tasks.append({\"link\": link, \n                         \"name\": get_param_value(param_tuples, \"file_name\"),\n                         \"folder_name\": folder_name,\n-                        param_tuples[0][0]:param_tuples[0][1],})\n+                        param_tuples[i][0]: values[i][1] for i in range(len(param_tuples))\n+\n+                            })\n             \n \n     return tasks\n \n"
+                },
+                {
+                    "date": 1744624634037,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -93,11 +93,9 @@\n                 continue\n \n             tasks.append({\"link\": link, \n                         \"name\": get_param_value(param_tuples, \"file_name\"),\n-                        \"folder_name\": folder_name,\n-                        param_tuples[i][0]: values[i][1] for i in range(len(param_tuples))\n-\n+                        \"folder_name\": folder_name\n                             })\n             \n \n     return tasks\n"
+                },
+                {
+                    "date": 1744624779330,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -93,9 +93,12 @@\n                 continue\n \n             tasks.append({\"link\": link, \n                         \"name\": get_param_value(param_tuples, \"file_name\"),\n-                        \"folder_name\": folder_name\n+                        \"folder_name\": folder_name,\n+                        \"need_authentication\":get_param_value(param_tuples,\"need_authentication\"),\n+                        \"cookies_path\":get_param_value(param_tuples,\"cookies_path\"),\n+                        \"raw_cookies_path\":get_param_value(param_tuples,\"raw_cookies_path\")\n                             })\n             \n \n     return tasks\n"
+                },
+                {
+                    "date": 1744624930376,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -91,14 +91,17 @@\n            \n             if not validate_params(param_tuples,[\"file_name\",\"need_authentication\"] ,\"Skipping invalid line: {line}\"):\n                 continue\n \n+            params_dict = dict(param_tuples)\n+            \n+\n             tasks.append({\"link\": link, \n                         \"name\": get_param_value(param_tuples, \"file_name\"),\n-                        \"folder_name\": folder_name,\n-                        \"need_authentication\":get_param_value(param_tuples,\"need_authentication\"),\n-                        \"cookies_path\":get_param_value(param_tuples,\"cookies_path\"),\n-                        \"raw_cookies_path\":get_param_value(param_tuples,\"raw_cookies_path\")\n+                        \"folder_name\": params_dict.get(\"folder_name\", None)\n+                        \"need_authentication\":\n+                        \"cookies_path\":\n+                        \"raw_cookies_path\":\n                             })\n             \n \n     return tasks\n"
+                },
+                {
+                    "date": 1744624967979,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -96,12 +96,9 @@\n             \n \n             tasks.append({\"link\": link, \n                         \"name\": get_param_value(param_tuples, \"file_name\"),\n-                        \"folder_name\": params_dict.get(\"folder_name\", None)\n-                        \"need_authentication\":\n-                        \"cookies_path\":\n-                        \"raw_cookies_path\":\n+                        **params_dict,\n                             })\n             \n \n     return tasks\n"
+                },
+                {
+                    "date": 1744643826374,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -95,8 +95,9 @@\n             params_dict = dict(param_tuples)\n             \n \n             tasks.append({\"link\": link, \n+                          \"Folder_name\": folder_name,\n                         \"name\": get_param_value(param_tuples, \"file_name\"),\n                         **params_dict,\n                             })\n             \n"
+                },
+                {
+                    "date": 1744643836531,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -95,9 +95,9 @@\n             params_dict = dict(param_tuples)\n             \n \n             tasks.append({\"link\": link, \n-                          \"Folder_name\": folder_name,\n+                         \"Folder_name\": folder_name,\n                         \"name\": get_param_value(param_tuples, \"file_name\"),\n                         **params_dict,\n                             })\n             \n"
+                },
+                {
+                    "date": 1744644166361,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -95,9 +95,9 @@\n             params_dict = dict(param_tuples)\n             \n \n             tasks.append({\"link\": link, \n-                         \"Folder_name\": folder_name,\n+                         \"folder_name\": folder_name,\n                         \"name\": get_param_value(param_tuples, \"file_name\"),\n                         **params_dict,\n                             })\n             \n"
+                },
+                {
+                    "date": 1744671196207,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,11 @@\n from message_hub import MessageHub\n import os\n import json\n import const.auth_const   as auth_const\n+import const.config_const   as config_const\n \n+\n def parse_params (params):\n     param_tuples = []\n     for param in params.split(\" \"):\n         if \"=\" in param:\n@@ -116,9 +118,9 @@\n     message_hub = MessageHub(kafka_config)\n \n     # Read tasks from the links file\n     # links_file_path = \"./resources/links-tests.txt\"\n-    links_file_path = \"./resources/udemy_links.txt\"\n+    links_file_path = auth_const.LINKS_PATHLINKS_PATH\n     tasks = read_links_file(links_file_path)\n \n     # Send tasks to Kafka\n     for task in tasks:\n"
+                },
+                {
+                    "date": 1744671298098,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -118,9 +118,9 @@\n     message_hub = MessageHub(kafka_config)\n \n     # Read tasks from the links file\n     # links_file_path = \"./resources/links-tests.txt\"\n-    links_file_path = auth_const.LINKS_PATHLINKS_PATH\n+    links_file_path = config_const.LINKS_FILE\n     tasks = read_links_file(links_file_path)\n \n     # Send tasks to Kafka\n     for task in tasks:\n"
+                },
+                {
+                    "date": 1744671316944,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -118,9 +118,9 @@\n     message_hub = MessageHub(kafka_config)\n \n     # Read tasks from the links file\n     # links_file_path = \"./resources/links-tests.txt\"\n-    links_file_path = config_const.LINKS_FILE\n+    links_file_path = config_const.LINKS_FILE_PATH\n     tasks = read_links_file(links_file_path)\n \n     # Send tasks to Kafka\n     for task in tasks:\n"
+                }
+            ],
+            "date": 1744549069378,
+            "name": "Commit-0",
+            "content": "from message_hub import MessageHub\nimport os\nimport json\n\ndef parse_params (params):\n    param_tuples = []\n    for param in params.split(\",\"):\n        if \"=\" in param:\n            key, value = param.split(\"=\")\n            # Strip any quotes and whitespace\n            key = key.strip()\n            value = value.strip('\"').strip()\n            param_tuples.append((key, value)) \n    return param_tuples\n\ndef validate_params (param_tuples,mandatory_parameters, error_message):\n    \"\"\"\n    Validates the parameters in the param_tuples list.\n    \"\"\"\n    for mandatory_param in mandatory_parameters:\n        if mandatory_param not in param_keys:\n            print(f\"{error_message} - Missing mandatory parameter: {mandatory_param}\")\n            return False\n    return True\n\ndef add_default_value(param_tuples, key, default_value):\n    \"\"\"\n    Adds a default value for a key if it doesn't exist in the param_tuples\n    Args:\n        param_tuples: List of tuples containing (key, value) pairs\n        key: Key to check for\n        default_value: Default value to add if key is missing\n    Returns:\n        Updated param_tuples list\n    \"\"\"\n    if not any(k == key for k, _ in param_tuples):\n        param_tuples.append((key, default_value))\n    return param_tuples\n     \ndef read_links_file(links_file_path):\n    \"\"\"\n    Reads the links file and returns a list of download tasks.\n    Each task is a dictionary containing the link, name, and folder name.\n    \"\"\"\n    if not os.path.exists(links_file_path):\n        raise FileNotFoundError(f\"Links file not found: {links_file_path}\")\n\n    tasks = []\n    folder_name = None\n\n    with open(links_file_path, \"r\") as links_file:\n        for line in links_file:\n            line = line.strip().split(\" \")\n            if not line:\n                continue\n\n            # Check if the line specifies the folder name\n            if line.startswith(\"folder:\"):\n                folder_name = line.split(\"folder:\")[1].strip()\n                continue\n\n            # Ensure a folder name has been set\n            if not folder_name:\n                print(\"Skipping links because no folder name is specified.\")\n                continue\n\n            # Parse the link and name\n            link, params = line.strip().split(\" \")\n            param_tuples = parse_params(params)\n            add_default_value(param_tuples, \"need_authentication\", \"false\")\n            if not validate_params(param_tuples,\"Skipping invalid line: {line}\")\n\n            for param in params.split(\",\"): \n                key, value = param.split(\"=\")\n                if key == \"link_name\":\n                    link_name = value.strip('\"')\n                elif key == \"need_authentication\":\n                    need_authentication = value.strip('\"')\n            if len(parts) != 2:\n                    print(f\"Skipping invalid line: {line}\")\n                    continue\n\n            link, name = parts\n            tasks.append({\"link\": link, \"name\": name, \"folder_name\": folder_name})\n\n    return tasks\n\n\nif __name__ == \"__main__\":\n    # Kafka configuration\n    kafka_config = {\n        \"bootstrap.servers\": \"localhost:9092\",  # Replace with your Kafka server\n    }\n    kafka_topic = \"download-requests\"\n\n    # Initialize the Message Hub\n    message_hub = MessageHub(kafka_config)\n\n    # Read tasks from the links file\n    links_file_path = \"./resources/links-tests.txt\"\n    tasks = read_links_file(links_file_path)\n\n    # Send tasks to Kafka\n    for task in tasks:\n        message_hub.send_message(kafka_topic, key=task[\"name\"], value=task)\n"
+        }
+    ]
+}

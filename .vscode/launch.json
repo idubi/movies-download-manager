@@ -12,7 +12,7 @@
       "type": "pickString",
       "id": "programPath",
       "description": "Select the Python file to debug",
-      "options": ["main.py", "src/downlaod.py"]
+      "options": ["main.py", "src/config_manager.py", "src/download_manager.py"]
     }
   ]
 }

@@ -1,0 +1,42 @@
+{
+    "sourceFile": "resources/links-tests.txt",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 6,
+            "patches": [
+                {
+                    "date": 1744156284703,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1744545052111,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,9 +4,9 @@\n https://www.youtube.com/shorts/L3tCWlXbxXk 123\n https://www.youtube.com/shorts/YMlBVneiL7s erw\n https://www.youtube.com/shorts/bopT80d4Iqo r\n \n-folder: tests/test02\n+folder: tests/test01/test02\n https://www.youtube.com/shorts/bopT80d4Iqo 123\n https://www.youtube.com/shorts/L3tCWlXbxXk lindormachine\n https://www.youtube.com/shorts/XYAITfhkBMM lindormachine02\n https://www.youtube.com/shorts/XYAITfhkBMM 123\n"
+                },
+                {
+                    "date": 1744571321304,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,12 +5,12 @@\n https://www.youtube.com/shorts/YMlBVneiL7s erw\n https://www.youtube.com/shorts/bopT80d4Iqo r\n \n folder: tests/test01/test02\n-https://www.youtube.com/shorts/bopT80d4Iqo 123\n-https://www.youtube.com/shorts/L3tCWlXbxXk lindormachine\n-https://www.youtube.com/shorts/XYAITfhkBMM lindormachine02\n-https://www.youtube.com/shorts/XYAITfhkBMM 123\n+https://www.youtube.com/shorts/bopT80d4Iqo file_name=123 need_authentication=true\n+https://www.youtube.com/shorts/L3tCWlXbxXk file_name=lindormachine\n+https://www.youtube.com/shorts/XYAITfhkBMM file_name=lindormachine02 need_au\n+https://www.youtube.com/shorts/XYAITfhkBMM file_name=123 need_auth\n \n folder: tests/test03\n https://www.youtube.com/shorts/bopT80d4Iqo 123\n https://www.youtube.com/shorts/iqWxcdXO9Vo ariel2\n"
+                },
+                {
+                    "date": 1744571329256,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n \n folder: tests/test01/test02\n https://www.youtube.com/shorts/bopT80d4Iqo file_name=123 need_authentication=true\n https://www.youtube.com/shorts/L3tCWlXbxXk file_name=lindormachine\n-https://www.youtube.com/shorts/XYAITfhkBMM file_name=lindormachine02 need_au\n+https://www.youtube.com/shorts/XYAITfhkBMM file_name=lindormachine02\n https://www.youtube.com/shorts/XYAITfhkBMM file_name=123 need_auth\n \n folder: tests/test03\n https://www.youtube.com/shorts/bopT80d4Iqo 123\n"
+                },
+                {
+                    "date": 1744571388316,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,26 +1,26 @@\n folder: tests\n folder: tests/test01\n  \n-https://www.youtube.com/shorts/L3tCWlXbxXk 123\n-https://www.youtube.com/shorts/YMlBVneiL7s erw\n-https://www.youtube.com/shorts/bopT80d4Iqo r\n+https://www.youtube.com/shorts/L3tCWlXbxXk file_name=123\n+https://www.youtube.com/shorts/YMlBVneiL7s file_name=erw\n+https://www.youtube.com/shorts/bopT80d4Iqo file_name=r\n \n folder: tests/test01/test02\n https://www.youtube.com/shorts/bopT80d4Iqo file_name=123 need_authentication=true\n https://www.youtube.com/shorts/L3tCWlXbxXk file_name=lindormachine\n https://www.youtube.com/shorts/XYAITfhkBMM file_name=lindormachine02\n https://www.youtube.com/shorts/XYAITfhkBMM file_name=123 need_auth\n \n folder: tests/test03\n-https://www.youtube.com/shorts/bopT80d4Iqo 123\n-https://www.youtube.com/shorts/iqWxcdXO9Vo ariel2\n-https://www.youtube.com/shorts/MCbZOPwmbMw abc\n-https://www.youtube.com/shorts/9yV9EIDoF1E efg\n+https://www.youtube.com/shorts/bopT80d4Iqo file_name=123\n+https://www.youtube.com/shorts/iqWxcdXO9Vo file_name=ariel2\n+https://www.youtube.com/shorts/MCbZOPwmbMw file_name=abc\n+https://www.youtube.com/shorts/9yV9EIDoF1E file_name=efg\n \n folder: tests/test04\n-https://www.youtube.com/shorts/9yV9EIDoF1E baseball\n-https://www.youtube.com/shorts/9yV9EIDoF1E kkk\n-https://www.youtube.com/shorts/r7jTyl19lGg dfdf\n+https://www.youtube.com/shorts/9yV9EIDoF1E file_name=baseball\n+https://www.youtube.com/shorts/9yV9EIDoF1E file_name=kkk\n+https://www.youtube.com/shorts/r7jTyl19lGg file_name=dfdf\n \n \n \n"
+                },
+                {
+                    "date": 1744575727877,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n folder: tests\n folder: tests/test01\n  \n-https://www.youtube.com/shorts/L3tCWlXbxXk file_name=123\n-https://www.youtube.com/shorts/YMlBVneiL7s file_name=erw\n+https://www.youtube.com/shorts/L3tCWlXbxXk file_name=123 need_authentication=true\n+https://www.youtube.com/shorts/YMlBVneiL7s file_name=erw need_authentication=false\n https://www.youtube.com/shorts/bopT80d4Iqo file_name=r\n \n folder: tests/test01/test02\n https://www.youtube.com/shorts/bopT80d4Iqo file_name=123 need_authentication=true\n"
+                },
+                {
+                    "date": 1744576012121,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,6 @@\n folder: tests\n folder: tests/test01\n- \n https://www.youtube.com/shorts/L3tCWlXbxXk file_name=123 need_authentication=true\n https://www.youtube.com/shorts/YMlBVneiL7s file_name=erw need_authentication=false\n https://www.youtube.com/shorts/bopT80d4Iqo file_name=r\n \n"
+                }
+            ],
+            "date": 1744156284703,
+            "name": "Commit-0",
+            "content": "folder: tests\nfolder: tests/test01\n \nhttps://www.youtube.com/shorts/L3tCWlXbxXk 123\nhttps://www.youtube.com/shorts/YMlBVneiL7s erw\nhttps://www.youtube.com/shorts/bopT80d4Iqo r\n\nfolder: tests/test02\nhttps://www.youtube.com/shorts/bopT80d4Iqo 123\nhttps://www.youtube.com/shorts/L3tCWlXbxXk lindormachine\nhttps://www.youtube.com/shorts/XYAITfhkBMM lindormachine02\nhttps://www.youtube.com/shorts/XYAITfhkBMM 123\n\nfolder: tests/test03\nhttps://www.youtube.com/shorts/bopT80d4Iqo 123\nhttps://www.youtube.com/shorts/iqWxcdXO9Vo ariel2\nhttps://www.youtube.com/shorts/MCbZOPwmbMw abc\nhttps://www.youtube.com/shorts/9yV9EIDoF1E efg\n\nfolder: tests/test04\nhttps://www.youtube.com/shorts/9yV9EIDoF1E baseball\nhttps://www.youtube.com/shorts/9yV9EIDoF1E kkk\nhttps://www.youtube.com/shorts/r7jTyl19lGg dfdf\n\n\n\n"
+        }
+    ]
+}

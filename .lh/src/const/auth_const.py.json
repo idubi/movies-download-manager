@@ -1,0 +1,30 @@
+{
+    "sourceFile": "src/const/auth_const.py",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 3,
+            "patches": [
+                {
+                    "date": 1744589491289,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1744658424040,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,3 +1,3 @@\n-RAW_COOKIES_PATH = \"./resources/raw_cookies.txt\"\n+RAW_COOKIES_PATH = \"./resources/raw-cookies.txt\"\n COOKIES_PATH = \"./resources/cookies.txt\"\n     \n"
+                },
+                {
+                    "date": 1744671123094,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,3 +1,5 @@\n RAW_COOKIES_PATH = \"./resources/raw-cookies.txt\"\n COOKIES_PATH = \"./resources/cookies.txt\"\n+LINKS_PATH = \"./resources/udemy_links.txt\"\n+\n     \n"
+                },
+                {
+                    "date": 1744671232972,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,5 @@\n RAW_COOKIES_PATH = \"./resources/raw-cookies.txt\"\n COOKIES_PATH = \"./resources/cookies.txt\"\n-LINKS_PATH = \"./resources/udemy_links.txt\"\n \n+\n     \n"
+                }
+            ],
+            "date": 1744589491289,
+            "name": "Commit-0",
+            "content": "RAW_COOKIES_PATH = \"./resources/raw_cookies.txt\"\nCOOKIES_PATH = \"./resources/cookies.txt\"\n    \n"
+        }
+    ]
+}

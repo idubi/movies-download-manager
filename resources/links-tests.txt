@@ -1,27 +1,25 @@
 folder: tests
 folder: tests/test01
-max_concurrent_downloads: 2
-https://www.youtube.com/shorts/L3tCWlXbxXk 123
-https://www.youtube.com/shorts/YMlBVneiL7s erw
-https://www.youtube.com/shorts/bopT80d4Iqo r
-folder: tests/test02
-max_concurrent_downloads: 1
-https://www.youtube.com/shorts/bopT80d4Iqo 123
-https://www.youtube.com/shorts/L3tCWlXbxXk lindormachine
-https://www.youtube.com/shorts/XYAITfhkBMM lindormachine02
-https://www.youtube.com/shorts/XYAITfhkBMM 123
+https://www.youtube.com/shorts/L3tCWlXbxXk file_name=123 need_authentication=true
+https://www.youtube.com/shorts/YMlBVneiL7s file_name=erw need_authentication=false
+https://www.youtube.com/shorts/bopT80d4Iqo file_name=r
+
+folder: tests/test01/test02
+https://www.youtube.com/shorts/bopT80d4Iqo file_name=123 need_authentication=true
+https://www.youtube.com/shorts/L3tCWlXbxXk file_name=lindormachine
+https://www.youtube.com/shorts/XYAITfhkBMM file_name=lindormachine02
+https://www.youtube.com/shorts/XYAITfhkBMM file_name=123 need_auth
 
 folder: tests/test03
-max_concurrent_downloads: 2
-https://www.youtube.com/shorts/bopT80d4Iqo 123
-https://www.youtube.com/shorts/iqWxcdXO9Vo ariel2
-https://www.youtube.com/shorts/MCbZOPwmbMw abc
-https://www.youtube.com/shorts/9yV9EIDoF1E efg
+https://www.youtube.com/shorts/bopT80d4Iqo file_name=123
+https://www.youtube.com/shorts/iqWxcdXO9Vo file_name=ariel2
+https://www.youtube.com/shorts/MCbZOPwmbMw file_name=abc
+https://www.youtube.com/shorts/9yV9EIDoF1E file_name=efg
 
 folder: tests/test04
-https://www.youtube.com/shorts/9yV9EIDoF1E baseball
-https://www.youtube.com/shorts/9yV9EIDoF1E kkk
-https://www.youtube.com/shorts/r7jTyl19lGg dfdf
+https://www.youtube.com/shorts/9yV9EIDoF1E file_name=baseball
+https://www.youtube.com/shorts/9yV9EIDoF1E file_name=kkk
+https://www.youtube.com/shorts/r7jTyl19lGg file_name=dfdf
 
 
 

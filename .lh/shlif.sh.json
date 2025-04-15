@@ -1,0 +1,22 @@
+{
+    "sourceFile": "shlif.sh",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1744156128760,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1744545958649,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,4 +1,11 @@\n+#pyenv virtualenvs \n+#pyenv virtualenv 3.12.7 browser-cookies\n+pyenv local browser-cookies \n+\n+\n+\n+\n #List Kafka Topics: Use the following command to list all Kafka topics:\n docker exec -it kafka kafka-topics --list --bootstrap-server localhost:9092\n #Create a Kafka Topic: Create a topic\n docker exec -it kafka kafka-topics --create --topic test --bootstrap-server localhost:9092 --partitions 1 --replication-factor 1\n"
+                }
+            ],
+            "date": 1744156128760,
+            "name": "Commit-0",
+            "content": "#List Kafka Topics: Use the following command to list all Kafka topics:\ndocker exec -it kafka kafka-topics --list --bootstrap-server localhost:9092\n#Create a Kafka Topic: Create a topic\ndocker exec -it kafka kafka-topics --create --topic test --bootstrap-server localhost:9092 --partitions 1 --replication-factor 1\n\n\n#MONITOR : Consume Messages: Start a Kafka consumer to monitor messages in a topic:\ndocker exec -it kafka kafka-topics --describe --topic test --bootstrap-server localhost:9092\n\n#Produce Messages: Start a Kafka producer to send messages to a topic:\ndocker exec -it kafka kafka-console-producer --bootstrap-server localhost:9092 --topic download-requests\n\n\n\n# ffmped and yt-dlp installation\ncurl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -o ~/.local/bin/yt-dlp\nchmod a+rx ~/.local/bin/yt-dlp  # Make executable\n\n\nsudo apt update\nsudo apt install ffmpeg\n\n#start kafka and zookeeper\ndocker-compose up -d\n\n# execute services\npython src/config_manager.py\npython src/download_manager.py\n"
+        }
+    ]
+}

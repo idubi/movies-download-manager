@@ -1,0 +1,42 @@
+{
+    "sourceFile": "resources/links-K8-semperis.txt",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 6,
+            "patches": [
+                {
+                    "date": 1744670979457,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1744671435788,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,5 @@\n folder: semperis\n folder: semperis/k8\n-https://zoom.us/rec/play/_oR0GluLTnk5xkTIUr5AGYu9ZzpN1Fd-vFiGu_Bb_iWuLFOubC7fTaijcDYfR-xrA0xGgo3yceCFSvwl.q6POVvdBFJ_MRcVN?accessLevel=meeting&canPlayFromShare=true&from=share_recording_detail&continueMode=true&componentName=rec-play&originRequestUrl=https%3A%2F%2Fzoom.us%2Frec%2Fshare%2FTc6O0XFAfQaU638-I5m3Oq-EKcpMGKn1ItPNw_DUBnpD0XFWFAHStNsyFPi27Xee.hHm5GWrjI1AsId8G K8Fadi need_authentication=true\n+https://zoom.us/rec/play/_oR0GluLTnk5xkTIUr5AGYu9ZzpN1Fd-vFiGu_Bb_iWuLFOubC7fTaijcDYfR-xrA0xGgo3yceCFSvwl.q6POVvdBFJ_MRcVN?accessLevel=meeting&canPlayFromShare=true&from=share_recording_detail&continueMode=true&componentName=rec-play&originRequestUrl=https%3A%2F%2Fzoom.us%2Frec%2Fshare%2FTc6O0XFAfQaU638-I5m3Oq-EKcpMGKn1ItPNw_DUBnpD0XFWFAHStNsyFPi27Xee.hHm5GWrjI1AsId8G file_name=K8Fadi need_authentication=True\n \n \n"
+                },
+                {
+                    "date": 1744671716654,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,5 @@\n folder: semperis\n folder: semperis/k8\n-https://zoom.us/rec/play/_oR0GluLTnk5xkTIUr5AGYu9ZzpN1Fd-vFiGu_Bb_iWuLFOubC7fTaijcDYfR-xrA0xGgo3yceCFSvwl.q6POVvdBFJ_MRcVN?accessLevel=meeting&canPlayFromShare=true&from=share_recording_detail&continueMode=true&componentName=rec-play&originRequestUrl=https%3A%2F%2Fzoom.us%2Frec%2Fshare%2FTc6O0XFAfQaU638-I5m3Oq-EKcpMGKn1ItPNw_DUBnpD0XFWFAHStNsyFPi27Xee.hHm5GWrjI1AsId8G file_name=K8Fadi need_authentication=True\n+https://zoom.us/rec/play/_oR0GluLTnk5xkTIUr5AGYu9ZzpN1Fd-vFiGu_Bb_iWuLFOubC7fTaijcDYfR-xrA0xGgo3yceCFSvwl.q6POVvdBFJ_MRcVN?accessLevel=meeting&canPlayFromShare=true&from=share_recording_detail&continueMode=true&componentName=rec-play&originRequestUrl=https%3A%2F%2Fzoom.us%2Frec%2Fshare%2FTc6O0XFAfQaU638-I5m3Oq-EKcpMGKn1ItPNw_DUBnpD0XFWFAHStNsyFPi27Xee.hHm5GWrjI1AsId8G file_name=K8Fadi2 need_authentication=False\n \n \n"
+                },
+                {
+                    "date": 1744671744310,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,5 @@\n folder: semperis\n folder: semperis/k8\n-https://zoom.us/rec/play/_oR0GluLTnk5xkTIUr5AGYu9ZzpN1Fd-vFiGu_Bb_iWuLFOubC7fTaijcDYfR-xrA0xGgo3yceCFSvwl.q6POVvdBFJ_MRcVN?accessLevel=meeting&canPlayFromShare=true&from=share_recording_detail&continueMode=true&componentName=rec-play&originRequestUrl=https%3A%2F%2Fzoom.us%2Frec%2Fshare%2FTc6O0XFAfQaU638-I5m3Oq-EKcpMGKn1ItPNw_DUBnpD0XFWFAHStNsyFPi27Xee.hHm5GWrjI1AsId8G file_name=K8Fadi2 need_authentication=False\n+https://zoom.us/rec/play/_oR0GluLTnk5xkTIUr5AGYu9ZzpN1Fd-vFiGu_Bb_iWuLFOubC7fTaijcDYfR-xrA0xGgo3yceCFSvwl.q6POVvdBFJ_MRcVN?accessLevel=meeting&canPlayFromShare=true&from=share_recording_detail&continueMode=true&componentName=rec-play&originRequestUrl=https%3A%2F%2Fzoom.us%2Frec%2Fshare%2FTc6O0XFAfQaU638-I5m3Oq-EKcpMGKn1ItPNw_DUBnpD0XFWFAHStNsyFPi27Xee.hHm5GWrjI1AsId8G file_name=K8Fadi3 need_authentication=True\n \n \n"
+                },
+                {
+                    "date": 1744671845286,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,5 @@\n folder: semperis\n folder: semperis/k8\n-https://zoom.us/rec/play/_oR0GluLTnk5xkTIUr5AGYu9ZzpN1Fd-vFiGu_Bb_iWuLFOubC7fTaijcDYfR-xrA0xGgo3yceCFSvwl.q6POVvdBFJ_MRcVN?accessLevel=meeting&canPlayFromShare=true&from=share_recording_detail&continueMode=true&componentName=rec-play&originRequestUrl=https%3A%2F%2Fzoom.us%2Frec%2Fshare%2FTc6O0XFAfQaU638-I5m3Oq-EKcpMGKn1ItPNw_DUBnpD0XFWFAHStNsyFPi27Xee.hHm5GWrjI1AsId8G file_name=K8Fadi3 need_authentication=True\n+https://zoom.us/rec/play/_oR0GluLTnk5xkTIUr5AGYu9ZzpN1Fd-vFiGu_Bb_iWuLFOubC7fTaijcDYfR-xrA0xGgo3yceCFSvwl.q6POVvdBFJ_MRcVN?accessLevel=meeting&canPlayFromShare=true&from=share_recording_detail&continueMode=true&componentName=rec-play&originRequestUrl=https%3A%2F%2Fzoom.us%2Frec%2Fshare%2FTc6O0XFAfQaU638-I5m3Oq-EKcpMGKn1ItPNw_DUBnpD0XFWFAHStNsyFPi27Xee.hHm5GWrjI1AsId8G file_name=K8Fadi need_authentication=True\n \n \n"
+                },
+                {
+                    "date": 1744672002457,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,5 @@\n folder: semperis\n folder: semperis/k8\n https://zoom.us/rec/play/_oR0GluLTnk5xkTIUr5AGYu9ZzpN1Fd-vFiGu_Bb_iWuLFOubC7fTaijcDYfR-xrA0xGgo3yceCFSvwl.q6POVvdBFJ_MRcVN?accessLevel=meeting&canPlayFromShare=true&from=share_recording_detail&continueMode=true&componentName=rec-play&originRequestUrl=https%3A%2F%2Fzoom.us%2Frec%2Fshare%2FTc6O0XFAfQaU638-I5m3Oq-EKcpMGKn1ItPNw_DUBnpD0XFWFAHStNsyFPi27Xee.hHm5GWrjI1AsId8G file_name=K8Fadi need_authentication=True\n+https://drive.google.com/file/d/1t57hEAvWaEtyxMqXHqG2Q7Q-pc0-2TTF/view file_name=K8AlexPart1  need_authentication=True\n \n-\n"
+                },
+                {
+                    "date": 1744672062056,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,6 @@\n folder: semperis\n folder: semperis/k8\n https://zoom.us/rec/play/_oR0GluLTnk5xkTIUr5AGYu9ZzpN1Fd-vFiGu_Bb_iWuLFOubC7fTaijcDYfR-xrA0xGgo3yceCFSvwl.q6POVvdBFJ_MRcVN?accessLevel=meeting&canPlayFromShare=true&from=share_recording_detail&continueMode=true&componentName=rec-play&originRequestUrl=https%3A%2F%2Fzoom.us%2Frec%2Fshare%2FTc6O0XFAfQaU638-I5m3Oq-EKcpMGKn1ItPNw_DUBnpD0XFWFAHStNsyFPi27Xee.hHm5GWrjI1AsId8G file_name=K8Fadi need_authentication=True\n https://drive.google.com/file/d/1t57hEAvWaEtyxMqXHqG2Q7Q-pc0-2TTF/view file_name=K8AlexPart1  need_authentication=True\n+https://drive.google.com/file/d/11AOBfpGuMGF2427bNAPQNYq8RNLjYOks/view file_name=K8AlexPart2  need_authentication=True\n \n"
+                }
+            ],
+            "date": 1744670979457,
+            "name": "Commit-0",
+            "content": "folder: semperis\nfolder: semperis/k8\nhttps://zoom.us/rec/play/_oR0GluLTnk5xkTIUr5AGYu9ZzpN1Fd-vFiGu_Bb_iWuLFOubC7fTaijcDYfR-xrA0xGgo3yceCFSvwl.q6POVvdBFJ_MRcVN?accessLevel=meeting&canPlayFromShare=true&from=share_recording_detail&continueMode=true&componentName=rec-play&originRequestUrl=https%3A%2F%2Fzoom.us%2Frec%2Fshare%2FTc6O0XFAfQaU638-I5m3Oq-EKcpMGKn1ItPNw_DUBnpD0XFWFAHStNsyFPi27Xee.hHm5GWrjI1AsId8G K8Fadi need_authentication=true\n\n\n"
+        }
+    ]
+}

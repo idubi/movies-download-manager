@@ -1,0 +1,38 @@
+{
+    "sourceFile": "resources/udemy_links.txt",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 5,
+            "patches": [
+                {
+                    "date": 1744578286846,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1744590329716,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,3 +1,4 @@\n folder: tests\n folder: tests/udemy\n https://www.udemy.com/course/cutting-edge-artificial-intelligence/learn/lecture/14606312 file_name=123 need_authentication=true\n+https://www.udemy.com/course/cutting-edge-artificial-intelligence/learn/lecture/14606312 file_name=123 need_authentication=false\n"
+                },
+                {
+                    "date": 1744590337044,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,4 +1,4 @@\n folder: tests\n folder: tests/udemy\n-https://www.udemy.com/course/cutting-edge-artificial-intelligence/learn/lecture/14606312 file_name=123 need_authentication=true\n-https://www.udemy.com/course/cutting-edge-artificial-intelligence/learn/lecture/14606312 file_name=123 need_authentication=false\n+https://www.udemy.com/course/cutting-edge-artificial-intelligence/learn/lecture/14606312 file_name=123 need_authentication=True\n+https://www.udemy.com/course/cutting-edge-artificial-intelligence/learn/lecture/14606312 file_name=123 need_authentication=False\n"
+                },
+                {
+                    "date": 1744590543421,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,4 +1,5 @@\n folder: tests\n folder: tests/udemy\n https://www.udemy.com/course/cutting-edge-artificial-intelligence/learn/lecture/14606312 file_name=123 need_authentication=True\n https://www.udemy.com/course/cutting-edge-artificial-intelligence/learn/lecture/14606312 file_name=123 need_authentication=False\n+https://www.udemy.com/course/cutting-edge-artificial-intelligence/learn/lecture/14606312 file_name=123\n"
+                },
+                {
+                    "date": 1744590550852,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,5 @@\n folder: tests\n folder: tests/udemy\n https://www.udemy.com/course/cutting-edge-artificial-intelligence/learn/lecture/14606312 file_name=123 need_authentication=True\n-https://www.udemy.com/course/cutting-edge-artificial-intelligence/learn/lecture/14606312 file_name=123 need_authentication=False\n-https://www.udemy.com/course/cutting-edge-artificial-intelligence/learn/lecture/14606312 file_name=123\n+https://www.udemy.com/course/cutting-edge-artificial-intelligence/learn/lecture/14606313 file_name=123 need_authentication=False\n+https://www.udemy.com/course/cutting-edge-artificial-intelligence/learn/lecture/14606314 file_name=123\n"
+                },
+                {
+                    "date": 1744659139557,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,3 @@\n folder: tests\n folder: tests/udemy\n https://www.udemy.com/course/cutting-edge-artificial-intelligence/learn/lecture/14606312 file_name=123 need_authentication=True\n-https://www.udemy.com/course/cutting-edge-artificial-intelligence/learn/lecture/14606313 file_name=123 need_authentication=False\n-https://www.udemy.com/course/cutting-edge-artificial-intelligence/learn/lecture/14606314 file_name=123\n"
+                }
+            ],
+            "date": 1744578286846,
+            "name": "Commit-0",
+            "content": "folder: tests\nfolder: tests/udemy\nhttps://www.udemy.com/course/cutting-edge-artificial-intelligence/learn/lecture/14606312 file_name=123 need_authentication=true\n"
+        }
+    ]
+}

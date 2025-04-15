@@ -1,0 +1,18 @@
+{
+    "sourceFile": "requirements.txt",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1744156173366,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1744156173365,
+            "name": "Commit-0",
+            "content": "browser_cookie3\nconfluent-kafka\nasyncio\nsubprocess\nrequests"
+        }
+    ]
+}
