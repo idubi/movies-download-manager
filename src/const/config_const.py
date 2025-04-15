@@ -1,1 +1,9 @@
-LINKS_FILE_PATH = "./resources/links-udemy.txt"
+LINKS_FILE_PATH = "./resources/links-tests.txt"
+MAX_CONCURRENT_DOWNLOADS = 15
+
+    # Kafka configuration
+
+KAFKA_CONFIG = {"bootstrap.servers": "localhost:9092"}
+KAFKA_TOPIC_DOWNLOAD_REQUESTS = "download-requests"
+KAFKA_TOPIC_DOWNLOAD_STATUS = "download-status"
+ 

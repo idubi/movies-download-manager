@@ -1,0 +1,50 @@
+{
+    "sourceFile": "start_download_manager.py",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 8,
+            "patches": [
+                {
+                    "date": 1744751608122,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1744751619442,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,10 +16,8 @@\n     message_hub = MessageHub(kafka_config)\n \n     # Consume tasks from Kafka\n     def handle_task(task):\n-/*************  ✨ Windsurf Command ⭐  *************/\n-/*******  4cebc34e-a0b7-4bdf-b0cf-41fc969a729a  *******/\n         asyncio.run(process_task(task, message_hub, status_topic))\n \n     message_hub.consume_messages(\n         kafka_topic, group_id=\"download-manager-group\", callback=handle_task\n"
+                },
+                {
+                    "date": 1744751639611,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,9 +16,9 @@\n     message_hub = MessageHub(kafka_config)\n \n     # Consume tasks from Kafka\n     def handle_task(task):\n-        asyncio.run(process_task(task, message_hub, status_topic))\n+        asyncio.run(MessageHub.process_task(task, message_hub, status_topic))\n \n     message_hub.consume_messages(\n         kafka_topic, group_id=\"download-manager-group\", callback=handle_task\n     )\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1744751802254,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,17 +1,17 @@\n \n from src.services.message_HUB.message_hub import MessageHub\n-import asyncio\n+import src.const.config_const  as config_const\n \n \n \n if __name__ == \"__main__\":\n     # Kafka configuration\n     kafka_config = {\n         \"bootstrap.servers\": \"localhost:9092\",  # Replace with your Kafka server\n     }\n-    kafka_topic = \"download-requests\"\n-    status_topic = \"download-status\"\n+    kafka_topic = KAFKA_TOPIC_DOWNLOAD_REQUESTS\n+    status_topic = config_const.KAFKA_TOPIC_DOWNLOAD_STATUS\n \n     # Initialize the Message Hub\n     message_hub = MessageHub(kafka_config)\n \n"
+                },
+                {
+                    "date": 1744751808113,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,9 +8,9 @@\n     # Kafka configuration\n     kafka_config = {\n         \"bootstrap.servers\": \"localhost:9092\",  # Replace with your Kafka server\n     }\n-    kafka_topic = KAFKA_TOPIC_DOWNLOAD_REQUESTS\n+    kafka_topic = config_const.KAFKA_TOPIC_DOWNLOAD_REQUESTS\n     status_topic = config_const.KAFKA_TOPIC_DOWNLOAD_STATUS\n \n     # Initialize the Message Hub\n     message_hub = MessageHub(kafka_config)\n"
+                },
+                {
+                    "date": 1744751830021,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,11 +5,9 @@\n \n \n if __name__ == \"__main__\":\n     # Kafka configuration\n-    kafka_config = {\n-        \"bootstrap.servers\": \"localhost:9092\",  # Replace with your Kafka server\n-    }\n+    kafka_config =config_const.KAFKA_CONFIG\n     kafka_topic = config_const.KAFKA_TOPIC_DOWNLOAD_REQUESTS\n     status_topic = config_const.KAFKA_TOPIC_DOWNLOAD_STATUS\n \n     # Initialize the Message Hub\n"
+                },
+                {
+                    "date": 1744751856451,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,10 +1,10 @@\n \n from src.services.message_HUB.message_hub import MessageHub\n import src.const.config_const  as config_const\n+import asyncio\n \n \n-\n if __name__ == \"__main__\":\n     # Kafka configuration\n     kafka_config =config_const.KAFKA_CONFIG\n     kafka_topic = config_const.KAFKA_TOPIC_DOWNLOAD_REQUESTS\n"
+                },
+                {
+                    "date": 1744752301478,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,22 +1,5 @@\n+from download_manager import DownloadManager\n \n-from src.services.message_HUB.message_hub import MessageHub\n-import src.const.config_const  as config_const\n-import asyncio\n \n-\n-if __name__ == \"__main__\":\n-    # Kafka configuration\n-    kafka_config =config_const.KAFKA_CONFIG\n-    kafka_topic = config_const.KAFKA_TOPIC_DOWNLOAD_REQUESTS\n-    status_topic = config_const.KAFKA_TOPIC_DOWNLOAD_STATUS\n-\n-    # Initialize the Message Hub\n-    message_hub = MessageHub(kafka_config)\n-\n-    # Consume tasks from Kafka\n-    def handle_task(task):\n-        asyncio.run(MessageHub.process_task(task, message_hub, status_topic))\n-\n-    message_hub.consume_messages(\n-        kafka_topic, group_id=\"download-manager-group\", callback=handle_task\n\\ No newline at end of file\n-    )\n+manager = DownloadManager()\n+manager.run()\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1744753267496,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,5 @@\n-from download_manager import DownloadManager\n+from src.services.downlaod_manager.download_manager import DownloadManager\n \n \n manager = DownloadManager()\n manager.run()\n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1744751608122,
+            "name": "Commit-0",
+            "content": "\nfrom src.services.message_HUB.message_hub import MessageHub\nimport asyncio\n\n\n\nif __name__ == \"__main__\":\n    # Kafka configuration\n    kafka_config = {\n        \"bootstrap.servers\": \"localhost:9092\",  # Replace with your Kafka server\n    }\n    kafka_topic = \"download-requests\"\n    status_topic = \"download-status\"\n\n    # Initialize the Message Hub\n    message_hub = MessageHub(kafka_config)\n\n    # Consume tasks from Kafka\n    def handle_task(task):\n/*************  ✨ Windsurf Command ⭐  *************/\n/*******  4cebc34e-a0b7-4bdf-b0cf-41fc969a729a  *******/\n        asyncio.run(process_task(task, message_hub, status_topic))\n\n    message_hub.consume_messages(\n        kafka_topic, group_id=\"download-manager-group\", callback=handle_task\n    )"
+        }
+    ]
+}

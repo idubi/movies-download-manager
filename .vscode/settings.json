@@ -1,0 +1,7 @@
+{
+  "python.analysis.extraPaths": [
+    "./src/const",
+    "./src/services/downlaod_manager",
+    "./src/services/config_manager"
+  ]
+}

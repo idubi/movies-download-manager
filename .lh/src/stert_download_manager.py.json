@@ -1,0 +1,22 @@
+{
+    "sourceFile": "src/stert_download_manager.py",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1744751394790,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1744751470489,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,10 @@\n \n+from src.services.message_HUB.message_hub import MessageHub\n+import asyncio\n+import os\n+\n+\n if __name__ == \"__main__\":\n     # Kafka configuration\n     kafka_config = {\n         \"bootstrap.servers\": \"localhost:9092\",  # Replace with your Kafka server\n"
+                }
+            ],
+            "date": 1744751394790,
+            "name": "Commit-0",
+            "content": "\nif __name__ == \"__main__\":\n    # Kafka configuration\n    kafka_config = {\n        \"bootstrap.servers\": \"localhost:9092\",  # Replace with your Kafka server\n    }\n    kafka_topic = \"download-requests\"\n    status_topic = \"download-status\"\n\n    # Initialize the Message Hub\n    message_hub = MessageHub(kafka_config)\n\n    # Consume tasks from Kafka\n    def handle_task(task):\n        asyncio.run(process_task(task, message_hub, status_topic))\n\n    message_hub.consume_messages(\n        kafka_topic, group_id=\"download-manager-group\", callback=handle_task\n    )"
+        }
+    ]
+}

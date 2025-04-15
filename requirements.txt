@@ -1,5 +1,5 @@
 browser_cookie3
 confluent-kafka
 asyncio
-subprocess
 requests
+subprocess.run

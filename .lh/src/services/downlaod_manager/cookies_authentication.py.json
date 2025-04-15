@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/services/downlaod_manager/cookies_authentication.py",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1744733302699,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1744733302699,
+            "name": "Commit-0",
+            "content": "import datetime\nimport os\n\n\ndef get_unix_timestamp(expire_date):\n    unix_timestamp = \"1893456000\"  # Default to a far future date\n    if (\n        expire_date != \"\" or expire_date != \"0\"\n    ):  # Check if the date is not empty or zero\n        exp = datetime.datetime.fromisoformat(\"2025-09-23T17:34:37.537+00:00\")\n        unix_timestamp = exp.timestamp()\n    return str(int(unix_timestamp))\n\n\ndef get_domain_flag(domain):\n    # Assuming http_only is a boolean string \"true\" or \"false\"\n    return \"TRUE\" if domain.startswith(\".\") else \"FALSE\"\n\n\ndef get_secure_flag(secure):\n    return \"TRUE\" if secure == \"✓\" else \"FALSE\"\n\n\ndef create_cookies_from_browser_cookies(browser_cookies_path):\n\n    if not os.path.exists(browser_cookies_path):\n        raise FileNotFoundError(f\"Input file not found: {browser_cookies_path}\")\n\n    cookies = []\n    cookies.append(\"# Netscape HTTP Cookie File\")\n    with open(browser_cookies_path, \"r\", encoding=\"utf-8\") as raw_file:\n        for line in raw_file:\n            # Parse raw cookie data (assuming tab-separated values)\n            parts = line.strip().split(\"\\t\")\n            if len(parts) < 12:  # Ensure all fields are present\n                continue  # Skip invalid lines\n\n            # Extract fields based on the new structure\n            (\n                name,\n                value,\n                domain,\n                path,\n                expires_or_max_age,\n                size,\n                http_only,\n                secure,\n                same_site,\n                partition_key,\n                cross_site,\n                priority,\n            ) = parts\n\n            # Replace invalid fields with valid values\n            domain_flag = get_domain_flag(domain)\n            secure_flag = get_secure_flag(secure)\n\n            expires_or_max_age = get_unix_timestamp(expires_or_max_age)\n\n            # Format the cookie data as needed\n            cookies.append(\n                f\"{domain}\\t{domain_flag}\\t{path}\\t{secure_flag}\\t{expires_or_max_age}\\t{name}\\t{value}\"\n            )\n\n    return cookies\n    # with open(output_path, \"w\", encoding=\"utf-8\") as cookies_file:\n    #     cookies_file.write(\"\\n\".join(cookies))\n\n    # return os.path.abspath(output_path)\n\n\ndef save_cookies_to_file(output_path, cookies ):\n    with open(output_path, \"w\", encoding=\"utf-8\") as cookies_file:\n        for cookie in cookies:\n            cookies_file.write(cookie + \"\\n\")\n"
+        }
+    ]
+}

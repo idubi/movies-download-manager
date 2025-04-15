@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/services/downlaod_manager/~~download_manager.py",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1744753146389,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1744753146389,
+            "name": "Commit-0",
+            "content": "from cookies_authentication import (\n    create_cookies_from_browser_cookies,\n    save_cookies_to_file,\n)\n\nfrom src.const.config_const import KAFKA_CONFIG,\\\n     KAFKA_TOPIC_DOWNLOAD_STATUS , KAFKA_TOPIC_DOWNLOAD_REQUESTS\n\nfrom src.services.message_HUB.message_hub import MessageHub\nimport asyncio\nimport os\n\n\nasync def download_video(cookies_path, link, name, folder_path):\n    \"\"\"\n    Asynchronously download a video using yt-dlp.\n    \"\"\"\n    os.makedirs(folder_path, exist_ok=True)\n    output_path = os.path.join(folder_path, f\"{name}.%(ext)s\")\n    if cookies_path is None:\n        command = [\n            \"yt-dlp\",\n            link,\n            \"-o\",\n            os.path.abspath(output_path),\n        ]\n    else:\n        command = [\n            \"yt-dlp\",\n            \"--cookies\",\n            os.path.abspath(cookies_path),\n            link,\n            \"-o\",\n            os.path.abspath(output_path),\n        ]\n\n    process = await asyncio.create_subprocess_exec(\n        *command,\n        stdout=asyncio.subprocess.PIPE,        stderr=asyncio.subprocess.PIPE,\n    )\n    stdout, stderr = await process.communicate()\n\n    if process.returncode == 0:\n        return f\"SUCCESS: {link} downloaded to {folder_path} as {name}\"\n    else:\n        return f\"FAILED: {link} - {stderr.decode().strip()}\"\n\n\nasync def process_task(task,  message_hub, status_topic):\n    \"\"\"\n    Processes a single download task.\n    \"\"\"\n    try:\n        link = task[\"link\"]\n        name = task[\"name\"]\n        try: \n            need_cookies = task[\"need_authentication\"] \n        except KeyError:\n            need_cookies = False\n            cookies_path = None\n            \n        \n        cookies_path = None\n        folder_name = task[\"folder_name\"]\n        folder_path = os.path.join(\"./resources\", folder_name)\n        if eval(need_cookies):\n            raw_cookie_path = task[\"raw_cookies_path\"]\n            cookies_path =  task[\"cookies_path\"]\n            cookies = create_cookies_from_browser_cookies(raw_cookie_path)\n            save_cookies_to_file(cookies_path, cookies)   \n            \n\n        # Execute the download\n        status = await download_video(cookies_path, link, name, folder_path)\n\n        # Publish the status to the status topic\n        message_hub.send_message(status_topic, key=name, value={\"status\": status})\n    except Exception as e:\n        error_message = f\"Error processing task: {str(e)}\"\n        print(error_message)\n        message_hub.send_message(status_topic, key=name, value={\"status\": error_message})\n\n\n\n\nif __name__ == \"__main__\":\n    # Kafka configuration\n    kafka_config =KAFKA_CONFIG\n    kafka_topic = KAFKA_TOPIC_DOWNLOAD_REQUESTS\n    status_topic = KAFKA_TOPIC_DOWNLOAD_STATUS\n\n    # Initialize the Message Hub\n    message_hub = MessageHub(kafka_config)\n\n    # Consume tasks from Kafka\n    def handle_task(task):\n        asyncio.run(MessageHub.process_task(task, message_hub, status_topic))\n\n    message_hub.consume_messages(\n        kafka_topic, group_id=\"download-manager-group\", callback=handle_task\n    )"
+        }
+    ]
+}

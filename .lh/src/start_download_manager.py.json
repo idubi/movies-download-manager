@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/start_download_manager.py",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1744751597409,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1744751597409,
+            "name": "Commit-0",
+            "content": "\nfrom src.services.message_HUB.message_hub import MessageHub\nimport asyncio\n\n\n\nif __name__ == \"__main__\":\n    # Kafka configuration\n    kafka_config = {\n        \"bootstrap.servers\": \"localhost:9092\",  # Replace with your Kafka server\n    }\n    kafka_topic = \"download-requests\"\n    status_topic = \"download-status\"\n\n    # Initialize the Message Hub\n    message_hub = MessageHub(kafka_config)\n\n    # Consume tasks from Kafka\n    def handle_task(task):\n/*************  ✨ Windsurf Command ⭐  *************/\n/*******  4cebc34e-a0b7-4bdf-b0cf-41fc969a729a  *******/\n        asyncio.run(process_task(task, message_hub, status_topic))\n\n    message_hub.consume_messages(\n        kafka_topic, group_id=\"download-manager-group\", callback=handle_task\n    )"
+        }
+    ]
+}

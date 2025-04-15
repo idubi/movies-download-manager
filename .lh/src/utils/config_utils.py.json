@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/utils/config_utils.py",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1744732954810,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1744732954810,
+            "name": "Commit-0",
+            "content": "def parse_params(params):\n    param_tuples = []\n    for param in params.split(\" \"):\n        if \"=\" in param:\n            key, value = param.split(\"=\")\n            key = key.strip()\n            value = value.strip('\"').strip()\n            param_tuples.append((key, value)) \n    return param_tuples\n\n\ndef get_param_value(param_tuples, key, default=None):\n    return dict(param_tuples).get(key, default)\n\n\ndef validate_params(param_tuples, mandatory_parameters, error_message):\n    param_keys = [key for key, _ in param_tuples]\n    for mandatory_param in mandatory_parameters:\n        if mandatory_param not in param_keys:\n            print(f\"{error_message} - Missing mandatory parameter: {mandatory_param}\")\n            return False\n    return True\n\n\ndef add_default_value(param_tuples, key, default_value):\n    if not any(k == key for k, _ in param_tuples):\n        param_tuples.append((key, default_value))\n"
+        }
+    ]
+}
