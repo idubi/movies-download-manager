@@ -63,7 +63,7 @@ async def process_task(task,  message_hub, status_topic):
         cookies_path = None
         folder_name = task["folder_name"]
         folder_path = os.path.join("./resources", folder_name)
-        if eval(need_cookies):
+        if str(need_cookies).strip().lower() == 'true':
             raw_cookie_path = task["raw_cookies_path"]
             cookies_path =  task["cookies_path"]
             cookies = create_cookies_from_browser_cookies(raw_cookie_path)

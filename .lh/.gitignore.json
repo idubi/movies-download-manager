@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 1,
+            "activePatchIndex": 7,
             "patches": [
                 {
                     "date": 1744715708904,
@@ -12,6 +12,30 @@
                 {
                     "date": 1744719224560,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,5 +8,8 @@\n *.avi\n *.mov\n *.part\n *.txt\n+*.part\n+*.webm\n \n+\n"
+                },
+                {
+                    "date": 1744753933018,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,6 +10,10 @@\n *.part\n *.txt\n *.part\n *.webm\n+/.lh/*\n+/.vscode/*\n \n \n+\n+\n"
+                },
+                {
+                    "date": 1744754411303,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,9 +11,5 @@\n *.txt\n *.part\n *.webm\n /.lh/*\n-/.vscode/*\n-\n-\n-\n-\n+/.vscode/*\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1744754419156,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,13 +3,13 @@\n /temp/*\n /.idea/*\n /__*__/*\n __*__\n+/.lh/*\n+/.vscode/*\n *.mp4\n *.avi\n *.mov\n *.part\n *.txt\n *.part\n *.webm\n\\ No newline at end of file\n-/.lh/*\n-/.vscode/*\n"
+                },
+                {
+                    "date": 1744754447771,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,11 +5,12 @@\n /__*__/*\n __*__\n /.lh/*\n /.vscode/*\n+__pycache__/*\n *.mp4\n *.avi\n *.mov\n *.part\n *.txt\n *.part\n\\ No newline at end of file\n-*.webm\n+*.webm\n"
+                },
+                {
+                    "date": 1744754479169,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,5 +12,6 @@\n *.mov\n *.part\n *.txt\n *.part\n-*.webm\n\\ No newline at end of file\n+*.webm\n+~*\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1744754486565,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,5 +13,4 @@\n *.part\n *.txt\n *.part\n *.webm\n-~*\n\\ No newline at end of file\n"
                 }
             ],
             "date": 1744715708904,

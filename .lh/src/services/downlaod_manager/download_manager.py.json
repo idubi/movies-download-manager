@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 8,
+            "activePatchIndex": 9,
             "patches": [
                 {
                     "date": 1744751360376,
@@ -40,6 +40,10 @@
                 {
                     "date": 1744753282835,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,7 @@\n import os\n import asyncio\n-from cookies_authentication import (\n+from src.services.downlaod_manager.cookies_authentication import (\n     create_cookies_from_browser_cookies,\n     save_cookies_to_file,\n )\n from src.const.config_const import (\n"
+                },
+                {
+                    "date": 1744753882085,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -48,9 +48,9 @@\n \n             folder_name = task[\"folder_name\"]\n             folder_path = os.path.join(\"./resources\", folder_name)\n \n-            if eval(str(need_cookies)):\n+            if str(need_cookies).lower() == 'true':\n                 raw_cookie_path = task[\"raw_cookies_path\"]\n                 cookies_path = task[\"cookies_path\"]\n                 cookies = create_cookies_from_browser_cookies(raw_cookie_path)\n                 save_cookies_to_file(cookies_path, cookies)\n"
                 }
             ],
             "date": 1744751360376,
