@@ -69,7 +69,7 @@ def create_cookies_from_browser_cookies(browser_cookies_path):
     # return os.path.abspath(output_path)
 
 
-def save_cookies_to_file(cookies, output_path):
+def save_cookies_to_file(output_path, cookies ):
     with open(output_path, "w", encoding="utf-8") as cookies_file:
         for cookie in cookies:
             cookies_file.write(cookie + "\n")

@@ -1,0 +1,18 @@
+{
+    "sourceFile": "resources/links-udemy.txt",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1744673949074,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1744673949074,
+            "name": "Commit-0",
+            "content": "folder: tests\nfolder: tests/udemy\nhttps://www.udemy.com/course/cutting-edge-artificial-intelligence/learn/lecture/14543234#overview file_name=udemy1 need_authentication=True\n"
+        }
+    ]
+}

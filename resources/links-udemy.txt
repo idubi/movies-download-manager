@@ -1,0 +1,3 @@
+folder: tests
+folder: tests/udemy
+https://www.udemy.com/course/cutting-edge-artificial-intelligence/learn/lecture/14543234#overview file_name=udemy1 need_authentication=True

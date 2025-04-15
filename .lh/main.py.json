@@ -1,0 +1,18 @@
+{
+    "sourceFile": "main.py",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1744578242787,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1744578242787,
+            "name": "Commit-0",
+            "content": "import asyncio\nfrom src.cookies_authentication import (\n    create_cookies_from_browser_cookies,\n    save_cookies_to_file,\n)\nfrom src.download_manager import download_videos_async\nfrom src.config_manager import read_links_file\n\n\nbrowser_cookies_file_path = \"./resources/raw-cookies.txt\"\ncookies_file_path = \"./resources/cookies.txt\"\nlinks_file_path = \"./resources/links-tests.txt\"\nmax_concurrent_downloads = 5\n\n\nif __name__ == \"__main__\":\n    # Step 1: Create cookies file\n    cookies_collection = create_cookies_from_browser_cookies(browser_cookies_file_path)\n    save_cookies_to_file(cookies_collection, cookies_file_path)\n    print(f\"Cookies file created at: {cookies_file_path}\")\n\n    # Step 2: Read links file\n    tasks = read_links_file(links_file_path)\n    print(f\"Loaded {len(tasks)} tasks from links file.\")\n\n    # Step 3: Start downloads\n    asyncio.run(\n        download_videos_async(cookies_file_path, tasks, max_concurrent_downloads)\n    )\n\n    print(\"All downloads completed.\")\n"
+        }
+    ]
+}

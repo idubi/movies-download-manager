@@ -1,0 +1,26 @@
+{
+    "sourceFile": ".vscode/extensions.json",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1744532417435,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1744533222816,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,7 @@\n {\n     \"recommendations\": [\n         \"github.copilot\",\n-        \"docker.docker\"\n+        \"docker.docker\",\n+        \"ms-azuretools.vscode-docker\"\n     ]\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1744537407488,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,8 @@\n {\n     \"recommendations\": [\n         \"github.copilot\",\n         \"docker.docker\",\n-        \"ms-azuretools.vscode-docker\"\n+        \"ms-azuretools.vscode-docker\",\n+        \"ms-kubernetes-tools.vscode-kubernetes-tools\"\n     ]\n }\n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1744532417435,
+            "name": "Commit-0",
+            "content": "{\n    \"recommendations\": [\n        \"github.copilot\",\n        \"docker.docker\"\n    ]\n}"
+        }
+    ]
+}

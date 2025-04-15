@@ -1,0 +1,6 @@
+folder: semperis
+folder: semperis/k8
+https://zoom.us/rec/play/_oR0GluLTnk5xkTIUr5AGYu9ZzpN1Fd-vFiGu_Bb_iWuLFOubC7fTaijcDYfR-xrA0xGgo3yceCFSvwl.q6POVvdBFJ_MRcVN?accessLevel=meeting&canPlayFromShare=true&from=share_recording_detail&continueMode=true&componentName=rec-play&originRequestUrl=https%3A%2F%2Fzoom.us%2Frec%2Fshare%2FTc6O0XFAfQaU638-I5m3Oq-EKcpMGKn1ItPNw_DUBnpD0XFWFAHStNsyFPi27Xee.hHm5GWrjI1AsId8G file_name=K8Fadi need_authentication=True
+https://drive.google.com/file/d/1t57hEAvWaEtyxMqXHqG2Q7Q-pc0-2TTF/view file_name=K8AlexPart1  need_authentication=True
+https://drive.google.com/file/d/11AOBfpGuMGF2427bNAPQNYq8RNLjYOks/view file_name=K8AlexPart2  need_authentication=True
+

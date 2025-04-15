@@ -3,7 +3,7 @@ from src.cookies_authentication import (
     create_cookies_from_browser_cookies,
     save_cookies_to_file,
 )
-from src.movie_utils import download_videos_async
+from src.download_manager import download_videos_async
 from src.config_manager import read_links_file
 
 

@@ -1,0 +1,1 @@
+LINKS_FILE_PATH = "./resources/links-udemy.txt"

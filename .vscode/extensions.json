@@ -1,5 +1,8 @@
 {
     "recommendations": [
-        "github.copilot"
+        "github.copilot",
+        "docker.docker",
+        "ms-azuretools.vscode-docker",
+        "ms-kubernetes-tools.vscode-kubernetes-tools"
     ]
 }

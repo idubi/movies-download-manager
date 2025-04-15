@@ -1,0 +1,134 @@
+{
+    "sourceFile": "src/download_manager.py",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 29,
+            "patches": [
+                {
+                    "date": 1744545126491,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1744545203457,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,5 @@\n-from message_hub import message_hub\n+from message_hub import MessageHub\n import asyncio\n import os\n \n \n"
+                },
+                {
+                    "date": 1744588308366,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,9 @@\n from message_hub import MessageHub\n+from src.cookies_authentication import (\n+    create_cookies_from_browser_cookies,\n+    save_cookies_to_file,\n+)\n import asyncio\n import os\n \n \n@@ -35,8 +39,10 @@\n     Processes a single download task.\n     \"\"\"\n     link = task[\"link\"]\n     name = task[\"name\"]\n+    need_cookies = task[\"need_cookies\"] or False\n+    \n     folder_name = task[\"folder_name\"]\n     folder_path = os.path.join(\"./resources\", folder_name)\n \n     # Execute the download\n"
+                },
+                {
+                    "date": 1744588342464,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -43,8 +43,12 @@\n     need_cookies = task[\"need_cookies\"] or False\n     \n     folder_name = task[\"folder_name\"]\n     folder_path = os.path.join(\"./resources\", folder_name)\n+    if need_cookies:\n+        cookies = await create_cookies_from_browser_cookies()\n+        await save_cookies_to_file(cookies_path, cookies)   \n+        \n \n     # Execute the download\n     status = await download_video(cookies_path, link, name, folder_path)\n \n"
+                },
+                {
+                    "date": 1744588556728,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,10 @@\n-from message_hub import MessageHub\n from src.cookies_authentication import (\n     create_cookies_from_browser_cookies,\n     save_cookies_to_file,\n )\n+from message_hub import MessageHub\n+\n import asyncio\n import os\n \n \n"
+                },
+                {
+                    "date": 1744588562144,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,10 +1,9 @@\n-from src.cookies_authentication import (\n+from cookies_authentication import (\n     create_cookies_from_browser_cookies,\n     save_cookies_to_file,\n )\n from message_hub import MessageHub\n-\n import asyncio\n import os\n \n \n"
+                },
+                {
+                    "date": 1744588784846,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -39,9 +39,9 @@\n     Processes a single download task.\n     \"\"\"\n     link = task[\"link\"]\n     name = task[\"name\"]\n-    need_cookies = task[\"need_cookies\"] or False\n+    need_cookies = task[\"need_authentication\"] or False\n     \n     folder_name = task[\"folder_name\"]\n     folder_path = os.path.join(\"./resources\", folder_name)\n     if need_cookies:\n"
+                },
+                {
+                    "date": 1744588858670,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -71,9 +71,9 @@\n     cookies_path = \"./resources/cookies.txt\"\n \n     # Consume tasks from Kafka\n     def handle_task(task):\n-        asyncio.run(process_task(task, cookies_path, message_hub, status_topic))\n+        asyncio.run(process_task(task, message_hub, status_topic))\n \n     message_hub.consume_messages(\n         kafka_topic, group_id=\"download-manager-group\", callback=handle_task\n     )\n"
+                },
+                {
+                    "date": 1744588933174,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -33,9 +33,9 @@\n     else:\n         return f\"FAILED: {link} - {stderr.decode().strip()}\"\n \n \n-async def process_task(task, cookies_path, message_hub, status_topic):\n+async def process_task(task, message_hub, status_topic):\n     \"\"\"\n     Processes a single download task.\n     \"\"\"\n     link = task[\"link\"]\n"
+                },
+                {
+                    "date": 1744588971520,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -33,9 +33,9 @@\n     else:\n         return f\"FAILED: {link} - {stderr.decode().strip()}\"\n \n \n-async def process_task(task, message_hub, status_topic):\n+async def process_task(task, browser_cookies_path ,cookies_path, message_hub, status_topic):\n     \"\"\"\n     Processes a single download task.\n     \"\"\"\n     link = task[\"link\"]\n"
+                },
+                {
+                    "date": 1744589003790,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -33,9 +33,9 @@\n     else:\n         return f\"FAILED: {link} - {stderr.decode().strip()}\"\n \n \n-async def process_task(task, browser_cookies_path ,cookies_path, message_hub, status_topic):\n+async def process_task(task, cookies_path, message_hub, status_topic):\n     \"\"\"\n     Processes a single download task.\n     \"\"\"\n     link = task[\"link\"]\n"
+                },
+                {
+                    "date": 1744589009072,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -33,9 +33,9 @@\n     else:\n         return f\"FAILED: {link} - {stderr.decode().strip()}\"\n \n \n-async def process_task(task, cookies_path, message_hub, status_topic):\n+async def process_task(task,  message_hub, status_topic):\n     \"\"\"\n     Processes a single download task.\n     \"\"\"\n     link = task[\"link\"]\n"
+                },
+                {
+                    "date": 1744589062668,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -66,11 +66,8 @@\n \n     # Initialize the Message Hub\n     message_hub = MessageHub(kafka_config)\n \n-    # Path to cookies file\n-    cookies_path = \"./resources/cookies.txt\"\n-\n     # Consume tasks from Kafka\n     def handle_task(task):\n         asyncio.run(process_task(task, message_hub, status_topic))\n \n"
+                },
+                {
+                    "date": 1744589929827,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -44,9 +44,10 @@\n     \n     folder_name = task[\"folder_name\"]\n     folder_path = os.path.join(\"./resources\", folder_name)\n     if need_cookies:\n-        cookies = await create_cookies_from_browser_cookies()\n+        raw_cookie_path = task[\"raw_cookies_path\"]\n+        cookies = await create_cookies_from_browser_cookies(raw_cookie_path)\n         await save_cookies_to_file(cookies_path, cookies)   \n         \n \n     # Execute the download\n"
+                },
+                {
+                    "date": 1744589965464,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -45,8 +45,9 @@\n     folder_name = task[\"folder_name\"]\n     folder_path = os.path.join(\"./resources\", folder_name)\n     if need_cookies:\n         raw_cookie_path = task[\"raw_cookies_path\"]\n+        cookies_path =  task[\"cookies_path\"]\n         cookies = await create_cookies_from_browser_cookies(raw_cookie_path)\n         await save_cookies_to_file(cookies_path, cookies)   \n         \n \n"
+                },
+                {
+                    "date": 1744591872107,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -43,9 +43,9 @@\n     need_cookies = task[\"need_authentication\"] or False\n     \n     folder_name = task[\"folder_name\"]\n     folder_path = os.path.join(\"./resources\", folder_name)\n-    if need_cookies:\n+    if eval(need_cookies):\n         raw_cookie_path = task[\"raw_cookies_path\"]\n         cookies_path =  task[\"cookies_path\"]\n         cookies = await create_cookies_from_browser_cookies(raw_cookie_path)\n         await save_cookies_to_file(cookies_path, cookies)   \n"
+                },
+                {
+                    "date": 1744625477475,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -40,8 +40,9 @@\n     \"\"\"\n     link = task[\"link\"]\n     name = task[\"name\"]\n     need_cookies = task[\"need_authentication\"] or False\n+    cookies_path = None\n     \n     folder_name = task[\"folder_name\"]\n     folder_path = os.path.join(\"./resources\", folder_name)\n     if eval(need_cookies):\n"
+                },
+                {
+                    "date": 1744643346766,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,16 +12,24 @@\n     Asynchronously download a video using yt-dlp.\n     \"\"\"\n     os.makedirs(folder_path, exist_ok=True)\n     output_path = os.path.join(folder_path, f\"{name}.%(ext)s\")\n-    command = [\n-        \"yt-dlp\",\n-        \"--cookies\",\n-        os.path.abspath(cookies_path),\n-        link,\n-        \"-o\",\n-        os.path.abspath(output_path),\n-    ]\n+    if cookies_path is not None:\n+        command = [\n+            \"yt-dlp\",\n+            link,\n+            \"-o\",\n+            os.path.abspath(output_path),\n+        ]\n+    else:\n+        command = [\n+            \"yt-dlp\",\n+            \"--cookies\",\n+            os.path.abspath(cookies_path),\n+            link,\n+            \"-o\",\n+            os.path.abspath(output_path),\n+        ]\n \n     process = await asyncio.create_subprocess_exec(\n         *command,\n         stdout=asyncio.subprocess.PIPE,        stderr=asyncio.subprocess.PIPE,\n"
+                },
+                {
+                    "date": 1744643678456,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -47,11 +47,16 @@\n     Processes a single download task.\n     \"\"\"\n     link = task[\"link\"]\n     name = task[\"name\"]\n-    need_cookies = task[\"need_authentication\"] or False\n-    cookies_path = None\n+    try \n+        need_cookies = task[\"need_authentication\"] \n+    except KeyError:\n+        need_cookies = False\n+        cookies_path = None\n+        \n     \n+    \n     folder_name = task[\"folder_name\"]\n     folder_path = os.path.join(\"./resources\", folder_name)\n     if eval(need_cookies):\n         raw_cookie_path = task[\"raw_cookies_path\"]\n"
+                },
+                {
+                    "date": 1744643693929,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -47,9 +47,9 @@\n     Processes a single download task.\n     \"\"\"\n     link = task[\"link\"]\n     name = task[\"name\"]\n-    try \n+    try: \n         need_cookies = task[\"need_authentication\"] \n     except KeyError:\n         need_cookies = False\n         cookies_path = None\n"
+                },
+                {
+                    "date": 1744644020078,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -45,32 +45,37 @@\n async def process_task(task,  message_hub, status_topic):\n     \"\"\"\n     Processes a single download task.\n     \"\"\"\n-    link = task[\"link\"]\n-    name = task[\"name\"]\n-    try: \n-        need_cookies = task[\"need_authentication\"] \n-    except KeyError:\n-        need_cookies = False\n-        cookies_path = None\n+    try:\n+        link = task[\"link\"]\n+        name = task[\"name\"]\n+        try: \n+            need_cookies = task[\"need_authentication\"] \n+        except KeyError:\n+            need_cookies = False\n+            cookies_path = None\n+            \n         \n-    \n-    \n-    folder_name = task[\"folder_name\"]\n-    folder_path = os.path.join(\"./resources\", folder_name)\n-    if eval(need_cookies):\n-        raw_cookie_path = task[\"raw_cookies_path\"]\n-        cookies_path =  task[\"cookies_path\"]\n-        cookies = await create_cookies_from_browser_cookies(raw_cookie_path)\n-        await save_cookies_to_file(cookies_path, cookies)   \n         \n+        folder_name = task[\"folder_name\"]\n+        folder_path = os.path.join(\"./resources\", folder_name)\n+        if eval(need_cookies):\n+            raw_cookie_path = task[\"raw_cookies_path\"]\n+            cookies_path =  task[\"cookies_path\"]\n+            cookies = await create_cookies_from_browser_cookies(raw_cookie_path)\n+            await save_cookies_to_file(cookies_path, cookies)   \n+            \n \n-    # Execute the download\n-    status = await download_video(cookies_path, link, name, folder_path)\n+        # Execute the download\n+        status = await download_video(cookies_path, link, name, folder_path)\n \n-    # Publish the status to the status topic\n-    message_hub.send_message(status_topic, key=name, value={\"status\": status})\n+        # Publish the status to the status topic\n+        message_hub.send_message(status_topic, key=name, value={\"status\": status})\n+    except Exception as e:\n+        error_message = f\"Error processing task: {str(e)}\"\n+        print(error_message)\n+        message_hub.send_message(status_topic, key=name, value={\"status\": error_message})\n \n \n if __name__ == \"__main__\":\n     # Kafka configuration\n"
+                },
+                {
+                    "date": 1744658779186,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -55,9 +55,9 @@\n             need_cookies = False\n             cookies_path = None\n             \n         \n-        \n+        cookies_path = None\n         folder_name = task[\"folder_name\"]\n         folder_path = os.path.join(\"./resources\", folder_name)\n         if eval(need_cookies):\n             raw_cookie_path = task[\"raw_cookies_path\"]\n"
+                },
+                {
+                    "date": 1744659393965,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -61,9 +61,9 @@\n         folder_path = os.path.join(\"./resources\", folder_name)\n         if eval(need_cookies):\n             raw_cookie_path = task[\"raw_cookies_path\"]\n             cookies_path =  task[\"cookies_path\"]\n-            cookies = await create_cookies_from_browser_cookies(raw_cookie_path)\n+            cookies =  create_cookies_from_browser_cookies(raw_cookie_path)\n             await save_cookies_to_file(cookies_path, cookies)   \n             \n \n         # Execute the download\n"
+                },
+                {
+                    "date": 1744659505343,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -62,9 +62,9 @@\n         if eval(need_cookies):\n             raw_cookie_path = task[\"raw_cookies_path\"]\n             cookies_path =  task[\"cookies_path\"]\n             cookies =  create_cookies_from_browser_cookies(raw_cookie_path)\n-            await save_cookies_to_file(cookies_path, cookies)   \n+            save_cookies_to_file(cookies_path, cookies)   \n             \n \n         # Execute the download\n         status = await download_video(cookies_path, link, name, folder_path)\n"
+                },
+                {
+                    "date": 1744660244498,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -61,9 +61,9 @@\n         folder_path = os.path.join(\"./resources\", folder_name)\n         if eval(need_cookies):\n             raw_cookie_path = task[\"raw_cookies_path\"]\n             cookies_path =  task[\"cookies_path\"]\n-            cookies =  create_cookies_from_browser_cookies(raw_cookie_path)\n+            cookies = create_cookies_from_browser_cookies(raw_cookie_path)\n             save_cookies_to_file(cookies_path, cookies)   \n             \n \n         # Execute the download\n"
+                },
+                {
+                    "date": 1744660256443,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -62,9 +62,9 @@\n         if eval(need_cookies):\n             raw_cookie_path = task[\"raw_cookies_path\"]\n             cookies_path =  task[\"cookies_path\"]\n             cookies = create_cookies_from_browser_cookies(raw_cookie_path)\n-            save_cookies_to_file(cookies_path, cookies)   \n+            await save_cookies_to_file(cookies_path, cookies)   \n             \n \n         # Execute the download\n         status = await download_video(cookies_path, link, name, folder_path)\n"
+                },
+                {
+                    "date": 1744660313590,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -62,9 +62,9 @@\n         if eval(need_cookies):\n             raw_cookie_path = task[\"raw_cookies_path\"]\n             cookies_path =  task[\"cookies_path\"]\n             cookies = create_cookies_from_browser_cookies(raw_cookie_path)\n-            await save_cookies_to_file(cookies_path, cookies)   \n+            save_cookies_to_file(cookies_path, cookies)   \n             \n \n         # Execute the download\n         status = await download_video(cookies_path, link, name, folder_path)\n"
+                },
+                {
+                    "date": 1744660408236,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,9 +12,9 @@\n     Asynchronously download a video using yt-dlp.\n     \"\"\"\n     os.makedirs(folder_path, exist_ok=True)\n     output_path = os.path.join(folder_path, f\"{name}.%(ext)s\")\n-    if cookies_path is not None:\n+    if cookies_path is None:\n         command = [\n             \"yt-dlp\",\n             link,\n             \"-o\",\n"
+                },
+                {
+                    "date": 1744660605094,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -41,9 +41,9 @@\n     else:\n         return f\"FAILED: {link} - {stderr.decode().strip()}\"\n \n \n-async def process_task(task,  message_hub, status_topic):\n+def process_task(task,  message_hub, status_topic):\n     \"\"\"\n     Processes a single download task.\n     \"\"\"\n     try:\n"
+                },
+                {
+                    "date": 1744660611799,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -41,9 +41,9 @@\n     else:\n         return f\"FAILED: {link} - {stderr.decode().strip()}\"\n \n \n-def process_task(task,  message_hub, status_topic):\n+async def process_task(task,  message_hub, status_topic):\n     \"\"\"\n     Processes a single download task.\n     \"\"\"\n     try:\n"
+                }
+            ],
+            "date": 1744545126491,
+            "name": "Commit-0",
+            "content": "from message_hub import message_hub\nimport asyncio\nimport os\n\n\nasync def download_video(cookies_path, link, name, folder_path):\n    \"\"\"\n    Asynchronously download a video using yt-dlp.\n    \"\"\"\n    os.makedirs(folder_path, exist_ok=True)\n    output_path = os.path.join(folder_path, f\"{name}.%(ext)s\")\n    command = [\n        \"yt-dlp\",\n        \"--cookies\",\n        os.path.abspath(cookies_path),\n        link,\n        \"-o\",\n        os.path.abspath(output_path),\n    ]\n\n    process = await asyncio.create_subprocess_exec(\n        *command,\n        stdout=asyncio.subprocess.PIPE,        stderr=asyncio.subprocess.PIPE,\n    )\n    stdout, stderr = await process.communicate()\n\n    if process.returncode == 0:\n        return f\"SUCCESS: {link} downloaded to {folder_path} as {name}\"\n    else:\n        return f\"FAILED: {link} - {stderr.decode().strip()}\"\n\n\nasync def process_task(task, cookies_path, message_hub, status_topic):\n    \"\"\"\n    Processes a single download task.\n    \"\"\"\n    link = task[\"link\"]\n    name = task[\"name\"]\n    folder_name = task[\"folder_name\"]\n    folder_path = os.path.join(\"./resources\", folder_name)\n\n    # Execute the download\n    status = await download_video(cookies_path, link, name, folder_path)\n\n    # Publish the status to the status topic\n    message_hub.send_message(status_topic, key=name, value={\"status\": status})\n\n\nif __name__ == \"__main__\":\n    # Kafka configuration\n    kafka_config = {\n        \"bootstrap.servers\": \"localhost:9092\",  # Replace with your Kafka server\n    }\n    kafka_topic = \"download-requests\"\n    status_topic = \"download-status\"\n\n    # Initialize the Message Hub\n    message_hub = MessageHub(kafka_config)\n\n    # Path to cookies file\n    cookies_path = \"./resources/cookies.txt\"\n\n    # Consume tasks from Kafka\n    def handle_task(task):\n        asyncio.run(process_task(task, cookies_path, message_hub, status_topic))\n\n    message_hub.consume_messages(\n        kafka_topic, group_id=\"download-manager-group\", callback=handle_task\n    )\n"
+        }
+    ]
+}

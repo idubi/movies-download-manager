@@ -1,0 +1,22 @@
+{
+    "sourceFile": ".gitignore",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1744715708904,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1744719224560,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,5 +8,8 @@\n *.avi\n *.mov\n *.part\n *.txt\n+*.part\n+*.webm\n \n+\n"
+                }
+            ],
+            "date": 1744715708904,
+            "name": "Commit-0",
+            "content": "/.venv/*\n/.history/*\n/temp/*\n/.idea/*\n/__*__/*\n__*__\n*.mp4\n*.avi\n*.mov\n*.part\n*.txt\n\n"
+        }
+    ]
+}
