@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 12,
+            "activePatchIndex": 20,
             "patches": [
                 {
                     "date": 1744671274668,
@@ -56,6 +56,38 @@
                 {
                     "date": 1744750357365,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,8 +2,8 @@\n MAX_CONCURRENT_DOWNLOADS = 15\n \n     # Kafka configuration\n \n-KAFKA_CONFIG = \"bootstrap.servers\": \"localhost:9092\"\n+KAFKA_CONFIG = {}\"bootstrap.servers\": \"localhost:9092\"}\n KAFKA_TOPIC_DOWNLOAD_REQUESTS = \"download-requests\"\n KAFKA_TOPIC_DOWNLOAD_STATUS = \"download-status\"\n  \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1744755427183,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,10 @@\n LINKS_FILE_PATH = \"./resources/links-tests.txt\"\n MAX_CONCURRENT_DOWNLOADS = 15\n+MAX_CONCURRENT_DOWNLOADS_PER_FOLDER = 5\n \n     # Kafka configuration\n \n-KAFKA_CONFIG = {}\"bootstrap.servers\": \"localhost:9092\"}\n+KAFKA_CONFIG = {\"bootstrap.servers\": \"localhost:9092\"}\n KAFKA_TOPIC_DOWNLOAD_REQUESTS = \"download-requests\"\n KAFKA_TOPIC_DOWNLOAD_STATUS = \"download-status\"\n  \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1744760731069,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,7 @@\n LINKS_FILE_PATH = \"./resources/links-tests.txt\"\n-MAX_CONCURRENT_DOWNLOADS = 15\n-MAX_CONCURRENT_DOWNLOADS_PER_FOLDER = 5\n+MAX_CONCURRENT_DOWNLOADS = 1\n+MAX_CONCURRENT_DOWNLOADS_PER_FOLDER = 1\n \n     # Kafka configuration\n \n KAFKA_CONFIG = {\"bootstrap.servers\": \"localhost:9092\"}\n"
+                },
+                {
+                    "date": 1744760797612,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,7 @@\n LINKS_FILE_PATH = \"./resources/links-tests.txt\"\n-MAX_CONCURRENT_DOWNLOADS = 1\n-MAX_CONCURRENT_DOWNLOADS_PER_FOLDER = 1\n+MAX_CONCURRENT_DOWNLOADS = 15\n+MAX_CONCURRENT_DOWNLOADS_PER_FOLDER = 5\n \n     # Kafka configuration\n \n KAFKA_CONFIG = {\"bootstrap.servers\": \"localhost:9092\"}\n"
+                },
+                {
+                    "date": 1744761395825,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,7 @@\n LINKS_FILE_PATH = \"./resources/links-tests.txt\"\n-MAX_CONCURRENT_DOWNLOADS = 15\n-MAX_CONCURRENT_DOWNLOADS_PER_FOLDER = 5\n+MAX_CONCURRENT_DOWNLOADS = 1\n+MAX_CONCURRENT_DOWNLOADS_PER_FOLDER = 15\n \n     # Kafka configuration\n \n KAFKA_CONFIG = {\"bootstrap.servers\": \"localhost:9092\"}\n"
+                },
+                {
+                    "date": 1744762085240,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,7 @@\n LINKS_FILE_PATH = \"./resources/links-tests.txt\"\n-MAX_CONCURRENT_DOWNLOADS = 1\n-MAX_CONCURRENT_DOWNLOADS_PER_FOLDER = 15\n+MAX_CONCURRENT_DOWNLOADS = 25\n+MAX_CONCURRENT_DOWNLOADS_PER_FOLDER = 10\n \n     # Kafka configuration\n \n KAFKA_CONFIG = {\"bootstrap.servers\": \"localhost:9092\"}\n"
+                },
+                {
+                    "date": 1744762770284,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,7 @@\n LINKS_FILE_PATH = \"./resources/links-tests.txt\"\n-MAX_CONCURRENT_DOWNLOADS = 25\n-MAX_CONCURRENT_DOWNLOADS_PER_FOLDER = 10\n+MAX_CONCURRENT_DOWNLOADS = 3\n+MAX_CONCURRENT_DOWNLOADS_PER_FOLDER = 2\n \n     # Kafka configuration\n \n KAFKA_CONFIG = {\"bootstrap.servers\": \"localhost:9092\"}\n"
+                },
+                {
+                    "date": 1744763919343,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,7 @@\n LINKS_FILE_PATH = \"./resources/links-tests.txt\"\n-MAX_CONCURRENT_DOWNLOADS = 3\n-MAX_CONCURRENT_DOWNLOADS_PER_FOLDER = 2\n+MAX_CONCURRENT_DOWNLOADS = 25\n+MAX_CONCURRENT_DOWNLOADS_PER_FOLDER = 10\n \n     # Kafka configuration\n \n KAFKA_CONFIG = {\"bootstrap.servers\": \"localhost:9092\"}\n"
+                },
+                {
+                    "date": 1744763927667,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,7 @@\n LINKS_FILE_PATH = \"./resources/links-tests.txt\"\n-MAX_CONCURRENT_DOWNLOADS = 25\n-MAX_CONCURRENT_DOWNLOADS_PER_FOLDER = 10\n+MAX_CONCURRENT_DOWNLOADS = 15\n+MAX_CONCURRENT_DOWNLOADS_PER_FOLDER = 8\n \n     # Kafka configuration\n \n KAFKA_CONFIG = {\"bootstrap.servers\": \"localhost:9092\"}\n"
                 }
             ],
             "date": 1744671274668,

@@ -1,11 +1,11 @@
 import os
 import json
-from src.const import auth_const
+from src.const import auth_const, config_const
 from src.services.message_HUB.message_hub import MessageHub
 from src.utils.config_utils import parse_params, \
                 parse_params,get_param_value, \
                 validate_params, add_default_value
-
+from collections import defaultdict
 
 class ConfigManager:
     _instance = None
@@ -48,40 +48,65 @@ class ConfigManager:
         return True
 
     def read_links_file_and_send(self):
-        self.tasks = self._read_links_file(self._links_file_path)
-        for task in self.tasks:
-            self.message_hub.send_message(self._kafka_topic, key=task["link"], value=task)
+        folder_links, folder_limits = self.parse_links_file()
+        for folder, tasks in folder_links.items():
+                    for task in tasks:
+                        task['max_concurrent'] = folder_limits.get(folder, config_const.MAX_CONCURRENT_DOWNLOADS_PER_FOLDER)
+                        self.message_hub.send_message(self._kafka_topic, key=task["link"], value=task)
 
-    def _read_links_file(self, path):
-        tasks = []
-        folder_name = None
-        with open(path, "r") as links_file:
+ 
+
+    def parse_links_file(self):
+        folder_links = defaultdict(list)
+        folder_limits = {}
+        current_folder = None
+        
+        with open(self._links_file_path, "r") as links_file:
             for line in links_file:
                 line = line.strip()
                 if not line:
                     continue
+
                 if line.startswith("folder:"):
-                    folder_name = line.split("folder:")[1].strip()
+                    current_folder = line.split("folder:")[1].strip()
                     continue
-                if not folder_name:
+                    
+                if line.startswith("max_concurrent:"):
+                    if current_folder:
+                        limit = int(line.split("max_concurrent:")[1].strip())
+                        folder_limits[current_folder] = min(
+                            limit,
+                            config_const.MAX_CONCURRENT_DOWNLOADS
+                        )
+                    continue
+
+                if not current_folder:
                     print("Skipping links because no folder name is specified.")
                     continue
+
+                # Process link and parameters
                 link, params = line.strip().split(" ", 1)
                 param_tuples = parse_params(params)
                 add_default_value(param_tuples, "need_authentication", "False")
+                
                 if eval(get_param_value(param_tuples, "need_authentication", "False")):
                     add_default_value(param_tuples, "cookies_path", auth_const.COOKIES_PATH)
                     add_default_value(param_tuples, "raw_cookies_path", auth_const.RAW_COOKIES_PATH)
+                
                 if not validate_params(param_tuples, ["file_name", "need_authentication"], f"Skipping invalid line: {line}"):
                     continue
+                
                 params_dict = dict(param_tuples)
-                tasks.append({
+                task = {
                     "link": link,
-                    "folder_name": folder_name,
+                    "folder_name": current_folder,
                     "name": get_param_value(param_tuples, "file_name"),
                     **params_dict
-                })
-        return tasks
+                }
+                folder_links[current_folder].append(task)
+                
+        return folder_links, folder_limits
+
 
     def __del__(self):
         if hasattr(self, "message_hub"):
