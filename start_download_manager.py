@@ -1,4 +1,4 @@
-from src.services.downlaod_manager.download_manager import DownloadManager
+from src.services.download_manager.download_manager import DownloadManager
 import asyncio
 import logging
 

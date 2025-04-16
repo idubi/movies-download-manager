@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 48,
+            "activePatchIndex": 49,
             "patches": [
                 {
                     "date": 1744751360376,
@@ -200,6 +200,10 @@
                 {
                     "date": 1744766629348,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -132,9 +132,8 @@\n         else:\n             logger.info(\"No slots available for downloads, waiting...\")\n             await asyncio.sleep(1)   \n             \n-\n     async def run(self):\n         logger.info(\"Download Manager run starting...\")\n         try:\n             messages_buffer = []\n@@ -147,26 +146,21 @@\n             ):\n                 messages_buffer.append(message)\n                 logger.info(f\"Received message. Buffer size: {len(messages_buffer)}\")\n                 \n-                # Process immediately if we have enough messages or after a short timeout\n+                # Only process when we have a full batch\n                 if len(messages_buffer) >= batch_size:\n                     logger.info(f\"Processing full batch of {len(messages_buffer)} messages\")\n                     await self.process_messages(messages_buffer)\n                     messages_buffer = []\n-                elif messages_buffer:  # Process partial batch after a short delay\n-                    logger.info(f\"Processing partial batch of {len(messages_buffer)} messages\")\n-                    await self.process_messages(messages_buffer)\n-                    messages_buffer = []\n+                    \n+                # Don't process partial batches immediately - removed the elif block\n                 \n-                # Small delay to allow more messages to accumulate\n-                await asyncio.sleep(0.1)\n-                \n-            # Process any remaining messages\n+            # Process any remaining messages at the end\n             if messages_buffer:\n                 logger.info(f\"Processing final batch of {len(messages_buffer)} messages\")\n                 await self.process_messages(messages_buffer)\n-                    \n+                        \n         except Exception as e:\n             logger.error(f\"Error in run method: {str(e)}\", exc_info=True)\n             raise\n \n"
+                },
+                {
+                    "date": 1744767181230,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -32,9 +32,9 @@\n         self.folder_semaphores = {}\n         self.global_semaphore = asyncio.Semaphore(self.max_concurrent)\n         self.lock = asyncio.Lock()  # Add lock for thread-safe counting\n         print(f\"Initializing Download Manager with max concurrent downloads: {self.max_concurrent}\")\n-        print(f\"Max concurrent downloads per folder: {MAX_CONCURRENT_DOWNLOADS_PER_FOLDER}\")\n+        logger.info(f\"Max concurrent downloads per folder: {MAX_CONCURRENT_DOWNLOADS_PER_FOLDER}\")\n \n \n     async def _download_video(self, cookies_path, link, name, folder_path):\n         os.makedirs(folder_path, exist_ok=True)\n"
                 }
             ],
             "date": 1744751360376,

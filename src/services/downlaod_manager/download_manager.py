@@ -33,7 +33,7 @@ class DownloadManager:
         self.global_semaphore = asyncio.Semaphore(self.max_concurrent)
         self.lock = asyncio.Lock()  # Add lock for thread-safe counting
         print(f"Initializing Download Manager with max concurrent downloads: {self.max_concurrent}")
-        print(f"Max concurrent downloads per folder: {MAX_CONCURRENT_DOWNLOADS_PER_FOLDER}")
+        logger.info(f"Max concurrent downloads per folder: {MAX_CONCURRENT_DOWNLOADS_PER_FOLDER}")
 
 
     async def _download_video(self, cookies_path, link, name, folder_path):

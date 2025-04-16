@@ -1,4 +1,4 @@
-from confluent_kafka import Producer, Consumer, Producer, KafkaError
+from confluent_kafka import Producer, Consumer, KafkaError
 import asyncio
 import json
 

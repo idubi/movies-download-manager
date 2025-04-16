@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 15,
+            "activePatchIndex": 16,
             "patches": [
                 {
                     "date": 1744751608122,
@@ -68,6 +68,10 @@
                 {
                     "date": 1744764444555,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,10 +1,35 @@\n from src.services.downlaod_manager.download_manager import DownloadManager\n import asyncio\n+import logging\n \n+logging.basicConfig(level=logging.INFO)\n+logger = logging.getLogger(__name__)\n+\n async def main():\n-    print(\"Starting Download Manager Service...\")\n-    manager = DownloadManager()\n\\ No newline at end of file\n-    await manager.run()\n+    try:\n+        logger.info(\"Starting Download Manager Service...\")\n+        manager = DownloadManager()\n+        \n+        # Add debug info before run\n+        logger.info(f\"Kafka config: {manager._kafka_config}\")\n+        logger.info(f\"Request topic: {manager._request_topic}\")\n+        logger.info(f\"Status topic: {manager._status_topic}\")\n+        \n+        # Wait for Kafka to be ready\n+        await asyncio.sleep(2)  # Give Kafka time to initialize\n+        \n+        logger.info(\"Starting message consumption...\")\n+        await manager.run()\n+        \n+    except KeyboardInterrupt:\n+        logger.info(\"Shutting down by user request...\")\n+    except Exception as e:\n+        logger.error(f\"Fatal error: {str(e)}\", exc_info=True)\n+        raise\n \n if __name__ == \"__main__\":\n-    asyncio.run(main())\n+    try:\n+        asyncio.run(main())\n+    except Exception as e:\n+        logger.error(f\"Failed to start Download Manager: {str(e)}\")\n+        raise\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1744767254565,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,5 @@\n-from src.services.downlaod_manager.download_manager import DownloadManager\n+from src.services.download_manager.download_manager import DownloadManager\n import asyncio\n import logging\n \n logging.basicConfig(level=logging.INFO)\n"
                 }
             ],
             "date": 1744751608122,
