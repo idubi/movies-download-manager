@@ -54,37 +54,7 @@ class ConfigManager:
                         task['max_concurrent'] = folder_limits.get(folder, config_const.MAX_CONCURRENT_DOWNLOADS_PER_FOLDER)
                         self.message_hub.send_message(self._kafka_topic, key=task["link"], value=task)
 
-
-    # def _read_links_file(self, path):
-    #     tasks = []
-    #     folder_name = None
-    #     with open(path, "r") as links_file:
-    #         for line in links_file:
-    #             line = line.strip()
-    #             if not line:
-    #                 continue
-    #             if line.startswith("folder:"):
-    #                 folder_name = line.split("folder:")[1].strip()
-    #                 continue
-    #             if not folder_name:
-    #                 print("Skipping links because no folder name is specified.")
-    #                 continue
-    #             link, params = line.strip().split(" ", 1)
-    #             param_tuples = parse_params(params)
-    #             add_default_value(param_tuples, "need_authentication", "False")
-    #             if eval(get_param_value(param_tuples, "need_authentication", "False")):
-    #                 add_default_value(param_tuples, "cookies_path", auth_const.COOKIES_PATH)
-    #                 add_default_value(param_tuples, "raw_cookies_path", auth_const.RAW_COOKIES_PATH)
-    #             if not validate_params(param_tuples, ["file_name", "need_authentication"], f"Skipping invalid line: {line}"):
-    #                 continue
-    #             params_dict = dict(param_tuples)
-    #             tasks.append({
-    #                 "link": link,
-    #                 "folder_name": folder_name,
-    #                 "name": get_param_value(param_tuples, "file_name"),
-    #                 **params_dict
-    #             })
-    #     return tasks
+ 
 
     def parse_links_file(self):
         folder_links = defaultdict(list)

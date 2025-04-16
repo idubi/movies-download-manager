@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 22,
+            "activePatchIndex": 23,
             "patches": [
                 {
                     "date": 1744733152424,
@@ -96,6 +96,10 @@
                 {
                     "date": 1744756396800,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,13 +1,13 @@\n import os\n import json\n-from src.const import auth_const\n+from src.const import auth_const, config_const\n from src.services.message_HUB.message_hub import MessageHub\n from src.utils.config_utils import parse_params, \\\n                 parse_params,get_param_value, \\\n                 validate_params, add_default_value\n+from collections import defaultdict\n \n-\n class ConfigManager:\n     _instance = None\n \n     def __new__(cls, kafka_config, kafka_topic, links_file_path=None):\n"
+                },
+                {
+                    "date": 1744761069087,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -53,40 +53,10 @@\n                     for task in tasks:\n                         task['max_concurrent'] = folder_limits.get(folder, config_const.MAX_CONCURRENT_DOWNLOADS_PER_FOLDER)\n                         self.message_hub.send_message(self._kafka_topic, key=task[\"link\"], value=task)\n \n+ \n \n-    # def _read_links_file(self, path):\n-    #     tasks = []\n-    #     folder_name = None\n-    #     with open(path, \"r\") as links_file:\n-    #         for line in links_file:\n-    #             line = line.strip()\n-    #             if not line:\n-    #                 continue\n-    #             if line.startswith(\"folder:\"):\n-    #                 folder_name = line.split(\"folder:\")[1].strip()\n-    #                 continue\n-    #             if not folder_name:\n-    #                 print(\"Skipping links because no folder name is specified.\")\n-    #                 continue\n-    #             link, params = line.strip().split(\" \", 1)\n-    #             param_tuples = parse_params(params)\n-    #             add_default_value(param_tuples, \"need_authentication\", \"False\")\n-    #             if eval(get_param_value(param_tuples, \"need_authentication\", \"False\")):\n-    #                 add_default_value(param_tuples, \"cookies_path\", auth_const.COOKIES_PATH)\n-    #                 add_default_value(param_tuples, \"raw_cookies_path\", auth_const.RAW_COOKIES_PATH)\n-    #             if not validate_params(param_tuples, [\"file_name\", \"need_authentication\"], f\"Skipping invalid line: {line}\"):\n-    #                 continue\n-    #             params_dict = dict(param_tuples)\n-    #             tasks.append({\n-    #                 \"link\": link,\n-    #                 \"folder_name\": folder_name,\n-    #                 \"name\": get_param_value(param_tuples, \"file_name\"),\n-    #                 **params_dict\n-    #             })\n-    #     return tasks\n-\n     def parse_links_file(self):\n         folder_links = defaultdict(list)\n         folder_limits = {}\n         current_folder = None\n"
                 }
             ],
             "date": 1744733152424,
