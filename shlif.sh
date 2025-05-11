@@ -1,6 +1,6 @@
 #pyenv virtualenvs 
 #pyenv virtualenv 3.12.7 browser-cookies
-pyenv local browser-cookies 
+pyenv local download-manager
 
 
 
@@ -33,3 +33,10 @@ docker-compose up -d
 # execute services
 python src/config_manager.py
 python src/download_manager.py
+
+
+
+#  installing helm kafka : 
+helm install my-release oci://registry-1.docker.io/bitnamicharts/kafka
+
+

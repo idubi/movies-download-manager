@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 1,
+            "activePatchIndex": 3,
             "patches": [
                 {
                     "date": 1744156128760,
@@ -12,6 +12,14 @@
                 {
                     "date": 1744545958649,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,4 +1,11 @@\n+#pyenv virtualenvs \n+#pyenv virtualenv 3.12.7 browser-cookies\n+pyenv local browser-cookies \n+\n+\n+\n+\n #List Kafka Topics: Use the following command to list all Kafka topics:\n docker exec -it kafka kafka-topics --list --bootstrap-server localhost:9092\n #Create a Kafka Topic: Create a topic\n docker exec -it kafka kafka-topics --create --topic test --bootstrap-server localhost:9092 --partitions 1 --replication-factor 1\n"
+                },
+                {
+                    "date": 1746730869008,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,7 @@\n #pyenv virtualenvs \n #pyenv virtualenv 3.12.7 browser-cookies\n-pyenv local browser-cookies \n+pyenv local download-manager\n \n \n \n \n@@ -32,4 +32,9 @@\n \n # execute services\n python src/config_manager.py\n python src/download_manager.py\n+\n+\n+\n+#  installing helm kafka : \n+helm install my-release oci://registry-1.docker.io/bitnamicharts/kafka\n"
+                },
+                {
+                    "date": 1746953892864,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -37,4 +37,6 @@\n \n \n #  installing helm kafka : \n helm install my-release oci://registry-1.docker.io/bitnamicharts/kafka\n+\n+\n"
                 }
             ],
             "date": 1744156128760,
